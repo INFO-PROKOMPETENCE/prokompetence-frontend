@@ -1,0 +1,10 @@
+services:
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/usr/src/app
+    command: yarn serve build
+    ports:
+      - 3003:3000
