@@ -1,0 +1,13 @@
+.main {
+    height: 100%;
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+        font-size: 32px;
+        font-weight: 600;
+    }
+}
