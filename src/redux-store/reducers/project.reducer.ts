@@ -1,10 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { ProjectStore } from "../../typing/store/project.store";
 import {
+  setProjectsAction,
   setProjectAction,
   setProjectInfoAction,
-  setProjectsAction,
-} from "../actions/project.action";
+} from "../actions";
 
 const initialState: ProjectStore = {
   projectList: {
@@ -45,7 +45,7 @@ const setProjectInfo = (
   };
 };
 
-export const userReducer = createReducer(initialState, (builder) => {
+export const projectReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setProjectsAction, setProjects)
     .addCase(setProjectAction, setProject)

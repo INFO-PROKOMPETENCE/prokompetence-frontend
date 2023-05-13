@@ -3,7 +3,7 @@ import { CommonStore } from "./common.store";
 import { UserStore } from "./user.store";
 
 export interface Store {
-  projects: ProjectStore;
+  project: ProjectStore;
   common: CommonStore;
   user: UserStore;
 }
