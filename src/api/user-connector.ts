@@ -1,7 +1,6 @@
 import { ConnectorFlow } from "../typing/connector";
 import { ConnectorAsInstance } from "../utils/connector-as-static";
 import { PrimaryConnector } from "./primary-controller";
-import { axios } from "../utils/axios";
 import {
   CurrentUser,
   LoginUserPayload,
@@ -9,6 +8,7 @@ import {
   RefreshTokenPayload,
   RegisterUserPayload,
 } from "../typing/user";
+import { axios } from "../utils";
 
 export class UserConnector extends PrimaryConnector<ConnectorFlow.USER> {
   @ConnectorAsInstance()

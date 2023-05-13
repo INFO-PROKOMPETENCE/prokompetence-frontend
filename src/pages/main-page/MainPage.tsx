@@ -1,10 +1,13 @@
 import { Button, Drawer, Input, TextField } from "@mui/material";
 import { FC, useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 import { PreviewProjectCard } from "../../components/shared/preview-project-card/PreviewProjectCard";
 import {
   getCurrentUserAsync,
+  getRefreshTokenAsync,
   registerUserAsync,
 } from "../../redux-store/actions";
+import { refreshTokenSelector } from "../../redux-store/selectors";
 import { useAppDispatch } from "../../redux-store/store-manager";
 import styles from "./MainPage.module.scss";
 
@@ -31,24 +34,31 @@ const mockPreviewCard: PreviewCard = {
 
 export const MainPage: FC = () => {
   const [isOpenFiltersBar, setIsOpenFiltersBar] = useState<boolean>(false);
+  const refresh = useSelector(refreshTokenSelector);
 
   const dispatch = useAppDispatch();
   const register = useCallback(() => {
     dispatch(
       registerUserAsync({
-        login: "aoaoa3",
-        name: "aoaoa3",
-        password: "aoaoa3",
+        login: "aoaoa4",
+        name: "aoaoa4",
+        password: "aoaoa4",
       })
     );
   }, [dispatch]);
   const getUser = useCallback(() => {
     dispatch(getCurrentUserAsync());
   }, [dispatch]);
+  const getNewToken = useCallback(() => {
+    if (refresh) {
+      dispatch(getRefreshTokenAsync({ refreshToken: refresh }));
+    }
+  }, [dispatch, refresh]);
   return (
     <div className={styles.main}>
       <button onClick={register}>register</button>
       <button onClick={getUser}>get user</button>
+      <button onClick={getNewToken}>get new token</button>
       <div className={styles.header}>Проекты - 522</div>
       <div className={styles.controls}>
         <TextField variant="outlined" placeholder="Найти проект" fullWidth />
