@@ -11,11 +11,15 @@ const initialState: UserStore = {
   currentUser: null,
   refreshToken: (() => {
     return LocalStorageManager.getFromLocalStorage<string>(
-      STORAGE_KEYS.REFRESH_JWT
+      STORAGE_KEYS.REFRESH_JWT,
+      false
     );
   })(),
   token: (() => {
-    return LocalStorageManager.getFromLocalStorage<string>(STORAGE_KEYS.JWT);
+    return LocalStorageManager.getFromLocalStorage<string>(
+      STORAGE_KEYS.JWT,
+      false
+    );
   })(),
 };
 
@@ -23,7 +27,11 @@ const setToken = (
   state: UserStore,
   action: ReturnType<typeof setTokenAction>
 ): UserStore => {
-  LocalStorageManager.setToLocalStorage(STORAGE_KEYS.JWT, action.payload);
+  LocalStorageManager.setToLocalStorage(
+    STORAGE_KEYS.JWT,
+    action.payload,
+    false
+  );
   return {
     ...state,
     token: action.payload,
@@ -36,7 +44,8 @@ const setRefreshToken = (
 ): UserStore => {
   LocalStorageManager.setToLocalStorage(
     STORAGE_KEYS.REFRESH_JWT,
-    action.payload
+    action.payload,
+    false
   );
   return {
     ...state,

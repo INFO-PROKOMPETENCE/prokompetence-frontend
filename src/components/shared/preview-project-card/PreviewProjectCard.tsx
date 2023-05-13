@@ -1,19 +1,20 @@
-import { Chip } from "@mui/material";
 import type { FC } from "react";
 import { ContentContainer } from "../content-container/ContentContainer";
 import cx from "classnames";
-import styles from "./PreviewProjectCard.module.scss";
 import { Project } from "../../../typing/project";
+import { KeyTechnologies, LifeScenarios } from "../../../typing/catalog";
+import { CatalogTag } from "../catalog-tag";
+import styles from "./PreviewProjectCard.module.scss";
 
 interface Props {
   card: Project;
+  lifeScenarios: LifeScenarios | null;
+  keyTechnologies: KeyTechnologies | null;
 }
 
 export const PreviewProjectCard: FC<Props> = ({
   card: {
-    complexity,
     curatorName,
-    id,
     keyTechnologyId,
     lifeScenarioId,
     maxStudentsCountInTeam,
@@ -21,16 +22,29 @@ export const PreviewProjectCard: FC<Props> = ({
     name,
     organizationName,
     recordedTeamsCount,
-    shortDescription,
   },
+  keyTechnologies,
+  lifeScenarios,
 }) => {
   return (
     <ContentContainer widthPx={336} heightPx={423}>
       <div className={styles.main}>
         <div className={styles.header}>
           <div className={styles.tags}>
-            <Chip label={keyTechnologyId} />
-            <Chip label={lifeScenarioId} />
+            <CatalogTag
+              label={
+                lifeScenarios?.find((item) => item.id === lifeScenarioId)
+                  ?.name || ""
+              }
+              type="lifeScenario"
+            />
+            <CatalogTag
+              label={
+                keyTechnologies?.find((item) => item.id === keyTechnologyId)
+                  ?.name || ""
+              }
+              type="keyTechnology"
+            />
           </div>
           <div className={styles.title}>{name}</div>
         </div>

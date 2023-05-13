@@ -6,14 +6,18 @@ import {
 } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import { commonReducer } from "./reducers/common.reducer";
-import { projectReducer } from "./reducers/project.reducer";
-import { userReducer } from "./reducers/user.reducer";
+import {
+  catalogReducer,
+  commonReducer,
+  projectReducer,
+  userReducer,
+} from "./reducers";
 
 const reducers = combineReducers({
   common: commonReducer,
   user: userReducer,
   project: projectReducer,
+  catalog: catalogReducer,
 });
 
 export const store = configureStore({
