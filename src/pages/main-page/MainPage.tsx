@@ -3,6 +3,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { PreviewProjectCard } from "../../components/shared/preview-project-card/PreviewProjectCard";
 import {
+  getCurrentUserAsync,
   getRefreshTokenAsync,
   loginUserAsync,
   registerUserAsync,
@@ -13,6 +14,7 @@ import {
 } from "../../redux-store/actions/catalog.action";
 import { getProjectsAsync } from "../../redux-store/actions/project.action";
 import {
+  currentUserSelector,
   projectsSelector,
   refreshTokenSelector,
 } from "../../redux-store/selectors";

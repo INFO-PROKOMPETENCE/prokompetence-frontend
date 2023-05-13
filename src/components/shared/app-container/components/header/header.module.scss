@@ -1,0 +1,40 @@
+@import '../../../../../styles/variables.scss';
+
+.main {
+    display: flex;
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.12);
+    
+    justify-content: center;
+    
+    .container {
+        display: flex;
+        max-width: $desktop-width;
+        width: 100%;
+        gap: 48px;
+
+        @media screen and (max-width: $desktop-width) {
+            max-width: $tablet-width;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            .data {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .name {
+                    font-weight: 500;
+                    font-size: 15px;
+                    line-height: 20px;
+                    color: rgba(0, 0, 0, 0.54);
+                }
+            }
+        }
+    }
+}

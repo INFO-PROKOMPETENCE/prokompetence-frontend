@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import cx from "classnames";
+import logo from "./img/logo-for-light.svg";
 import styles from "./icons.module.scss";
 
 interface Props {
@@ -26,4 +27,8 @@ export const DirectoryIcon: FC<Props> = ({ isActive }) => {
       />
     </svg>
   );
+};
+
+export const LogoIcon: FC = () => {
+  return <img src={logo} alt="" />;
 };

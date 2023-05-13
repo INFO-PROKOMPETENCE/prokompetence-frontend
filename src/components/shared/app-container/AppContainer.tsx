@@ -1,9 +1,13 @@
-import { Tabs, Tab } from "@mui/material";
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
+import { getCurrentUserAsync } from "../../../redux-store/actions";
+import { currentUserSelector } from "../../../redux-store/selectors";
+import { useAppDispatch } from "../../../redux-store/store-manager";
 import styles from "./AppContainer.module.scss";
 import { ContentAppContainer } from "./components/content-app-container/ContentAppContainer";
+import { Header } from "./components/header";
 
 const routes: { [key: number | string]: string } = {
   // TO DO
@@ -14,6 +18,13 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
   const [activeTab, setActiveTab] = useState(-1);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const currentUser = useSelector(currentUserSelector);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUserAsync());
+  }, [dispatch]);
 
   useEffect(() => {
     Object.keys(routes).forEach((key) => {
@@ -34,14 +45,12 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.header}>
-        <div className={styles.content}>
-          <Tabs value={activeTab} onChange={(e, tab) => changePage(tab)}>
-            <Tab style={{ textTransform: "none" }} label="Каталог" />
-            <Tab style={{ textTransform: "none" }} label="Мой проект" />
-          </Tabs>
-        </div>
-      </div>
+      <Header
+        activeTab={activeTab}
+        changeTab={changePage}
+        name={currentUser?.name || "User"}
+        onClickLogout={() => {}}
+      />
       <ContentAppContainer>{children}</ContentAppContainer>
     </div>
   );
