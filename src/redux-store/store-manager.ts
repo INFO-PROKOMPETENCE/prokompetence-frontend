@@ -7,9 +7,11 @@ import {
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
 import { commonReducer } from "./reducers/common.reducer";
+import { userReducer } from "./reducers/user.reducer";
 
 const reducers = combineReducers({
   common: commonReducer,
+  user: userReducer,
 });
 
 export const store = configureStore({

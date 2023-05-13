@@ -12,6 +12,6 @@ export class ProjectConnector extends PrimaryConnector<ConnectorFlow.PROJECTS> {
   }
 
   public getDefault = () => {
-    return axios.get<any>(this.urls.DEFAULT);
+    return axios.get<any>(this.urls.ADD_PROJECT);
   };
 }

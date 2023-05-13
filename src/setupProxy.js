@@ -4,9 +4,10 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'http://localhost:3001',
+            target: 'https://localhost:5001',
             changeOrigin: true,
             onProxyReq: ({ method, path, req }) => console.log(method, path),
+            secure: false
         }),
 
     );

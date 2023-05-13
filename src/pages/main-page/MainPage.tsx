@@ -1,6 +1,11 @@
 import { Button, Drawer, Input, TextField } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { PreviewProjectCard } from "../../components/shared/preview-project-card/PreviewProjectCard";
+import {
+  getCurrentUserAsync,
+  registerUserAsync,
+} from "../../redux-store/actions";
+import { useAppDispatch } from "../../redux-store/store-manager";
 import styles from "./MainPage.module.scss";
 
 export interface PreviewCard {
@@ -26,8 +31,24 @@ const mockPreviewCard: PreviewCard = {
 
 export const MainPage: FC = () => {
   const [isOpenFiltersBar, setIsOpenFiltersBar] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+  const register = useCallback(() => {
+    dispatch(
+      registerUserAsync({
+        login: "aoaoa3",
+        name: "aoaoa3",
+        password: "aoaoa3",
+      })
+    );
+  }, [dispatch]);
+  const getUser = useCallback(() => {
+    dispatch(getCurrentUserAsync());
+  }, [dispatch]);
   return (
     <div className={styles.main}>
+      <button onClick={register}>register</button>
+      <button onClick={getUser}>get user</button>
       <div className={styles.header}>Проекты - 522</div>
       <div className={styles.controls}>
         <TextField variant="outlined" placeholder="Найти проект" fullWidth />
