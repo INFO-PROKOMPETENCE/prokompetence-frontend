@@ -1,6 +1,7 @@
 import { Button, Drawer, TextField } from "@mui/material";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { PreviewProjectCard } from "../../components/shared/preview-project-card/PreviewProjectCard";
 import {
   getCurrentUserAsync,
@@ -31,6 +32,7 @@ export const MainPage: FC = () => {
   const projects = useSelector(projectsSelector);
   const keyTechnologies = useSelector(keyTechnologiesSelector);
   const lifeScenarios = useSelector(lifeScenariosSelector);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -59,10 +61,12 @@ export const MainPage: FC = () => {
     }
   }, [dispatch, refresh]);
 
-  useEffect(() => {
-    console.log(keyTechnologies);
-    console.log(lifeScenarios);
-  }, [keyTechnologies, lifeScenarios]);
+  const goToProject = useCallback(
+    (projectId: string) => {
+      navigate(`/projects/${projectId}`);
+    },
+    [navigate]
+  );
 
   return (
     <div className={styles.main}>
@@ -82,6 +86,7 @@ export const MainPage: FC = () => {
             card={project}
             keyTechnologies={keyTechnologies}
             lifeScenarios={lifeScenarios}
+            onClick={() => goToProject(project.id)}
           />
         ))}
       </div>

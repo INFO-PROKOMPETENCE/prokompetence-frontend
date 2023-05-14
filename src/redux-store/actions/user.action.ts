@@ -32,7 +32,7 @@ export const setCurrentUserAction = createAction<CurrentUser>(
 export const registerUserAsync = createAsyncThunk(
   USER_ACTIONS.REGISTER_USER,
   async (payload: RegisterUserPayload, { dispatch }) => {
-    setLoadingAction(USER_ACTIONS.REGISTER_USER);
+    dispatch(setLoadingAction(USER_ACTIONS.REGISTER_USER));
 
     try {
       await UserConnector.getInstance().registerUser(payload);
@@ -42,14 +42,14 @@ export const registerUserAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(USER_ACTIONS.REGISTER_USER);
+    dispatch(setLoadedAction(USER_ACTIONS.REGISTER_USER));
   }
 );
 
 export const loginUserAsync = createAsyncThunk(
   USER_ACTIONS.LOGIN_USER,
   async (payload: LoginUserPayload, { dispatch }) => {
-    setLoadingAction(USER_ACTIONS.LOGIN_USER);
+    dispatch(setLoadingAction(USER_ACTIONS.LOGIN_USER));
 
     try {
       const { data } = await UserConnector.getInstance().loginUser(payload);
@@ -59,14 +59,14 @@ export const loginUserAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(USER_ACTIONS.LOGIN_USER);
+    dispatch(setLoadedAction(USER_ACTIONS.LOGIN_USER));
   }
 );
 
 export const getRefreshTokenAsync = createAsyncThunk(
   USER_ACTIONS.GET_REFRESH_TOKEN,
   async (payload: RefreshTokenPayload, { dispatch }) => {
-    setLoadingAction(USER_ACTIONS.GET_REFRESH_TOKEN);
+    dispatch(setLoadingAction(USER_ACTIONS.GET_REFRESH_TOKEN));
 
     try {
       const { data } = await UserConnector.getInstance().refreshToken(payload);
@@ -76,14 +76,14 @@ export const getRefreshTokenAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(USER_ACTIONS.GET_REFRESH_TOKEN);
+    dispatch(setLoadedAction(USER_ACTIONS.GET_REFRESH_TOKEN));
   }
 );
 
 export const getCurrentUserAsync = createAsyncThunk(
   USER_ACTIONS.GET_CURRENT_USER,
   async (_, { dispatch }) => {
-    setLoadingAction(USER_ACTIONS.GET_CURRENT_USER);
+    dispatch(setLoadingAction(USER_ACTIONS.GET_CURRENT_USER));
 
     try {
       const { data } = await UserConnector.getInstance().getCurrentUser();
@@ -92,6 +92,6 @@ export const getCurrentUserAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(USER_ACTIONS.GET_CURRENT_USER);
+    dispatch(setLoadedAction(USER_ACTIONS.GET_CURRENT_USER));
   }
 );

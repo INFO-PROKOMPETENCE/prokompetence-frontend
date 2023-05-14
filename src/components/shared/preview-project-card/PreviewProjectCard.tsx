@@ -10,6 +10,7 @@ interface Props {
   card: Project;
   lifeScenarios: LifeScenarios | null;
   keyTechnologies: KeyTechnologies | null;
+  onClick: () => void;
 }
 
 export const PreviewProjectCard: FC<Props> = ({
@@ -25,6 +26,7 @@ export const PreviewProjectCard: FC<Props> = ({
   },
   keyTechnologies,
   lifeScenarios,
+  onClick,
 }) => {
   return (
     <ContentContainer widthPx={336} heightPx={423}>
@@ -46,7 +48,9 @@ export const PreviewProjectCard: FC<Props> = ({
               type="keyTechnology"
             />
           </div>
-          <div className={styles.title}>{name}</div>
+          <div className={styles.title} onClick={onClick}>
+            {name}
+          </div>
         </div>
         <div className={styles.bottom}>
           <div className={styles.info}>

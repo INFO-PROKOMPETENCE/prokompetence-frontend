@@ -21,7 +21,7 @@ export const setLifeScenariosAction = createAction<LifeScenarios>(
 export const getKeyTechnologiesAsync = createAsyncThunk(
   CATALOG_ACTIONS.GET_KEY_TECHNOLOGIES,
   async (_, { dispatch }) => {
-    setLoadingAction(CATALOG_ACTIONS.GET_KEY_TECHNOLOGIES);
+    dispatch(setLoadingAction(CATALOG_ACTIONS.GET_KEY_TECHNOLOGIES));
 
     try {
       const { data } =
@@ -31,13 +31,13 @@ export const getKeyTechnologiesAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(CATALOG_ACTIONS.GET_KEY_TECHNOLOGIES);
+    dispatch(setLoadedAction(CATALOG_ACTIONS.GET_KEY_TECHNOLOGIES));
   }
 );
 export const getLifeScenariosAsync = createAsyncThunk(
   CATALOG_ACTIONS.GET_LIFE_SCENARIOS,
   async (_, { dispatch }) => {
-    setLoadingAction(CATALOG_ACTIONS.GET_LIFE_SCENARIOS);
+    dispatch(setLoadingAction(CATALOG_ACTIONS.GET_LIFE_SCENARIOS));
 
     try {
       const { data } = await CatalogConnector.getInstance().getLifeScenarios();
@@ -46,6 +46,6 @@ export const getLifeScenariosAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(CATALOG_ACTIONS.GET_LIFE_SCENARIOS);
+    dispatch(setLoadedAction(CATALOG_ACTIONS.GET_LIFE_SCENARIOS));
   }
 );

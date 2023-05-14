@@ -12,15 +12,20 @@
         .tags {
             display: flex;
             gap: 8px;
-
-            
         }
+        
         .title {
             font-weight: 800;
             font-size: 17px;
             line-height: 28px;
             letter-spacing: -0.5px;
             color: rgba(25, 28, 48, 0.9);
+
+            cursor: pointer;
+
+            &:hover {
+                color: #526ED3;
+            }
         }
     }
     .bottom {

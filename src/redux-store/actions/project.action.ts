@@ -33,7 +33,7 @@ export const setProjectInfoAction = createAction<ProjectInformation>(
 export const getProjectsAsync = createAsyncThunk(
   PROJECT_ACTIONS.GET_PROJECTS,
   async (_, { dispatch }) => {
-    setLoadingAction(PROJECT_ACTIONS.GET_PROJECTS);
+    dispatch(setLoadingAction(PROJECT_ACTIONS.GET_PROJECTS));
 
     try {
       const { data } = await ProjectConnector.getInstance().getProjects();
@@ -42,14 +42,14 @@ export const getProjectsAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(PROJECT_ACTIONS.GET_PROJECTS);
+    dispatch(setLoadedAction(PROJECT_ACTIONS.GET_PROJECTS));
   }
 );
 
 export const getProjectAsync = createAsyncThunk(
   PROJECT_ACTIONS.GET_PROJECT,
   async (projectId: string, { dispatch }) => {
-    setLoadingAction(PROJECT_ACTIONS.GET_PROJECT);
+    dispatch(setLoadingAction(PROJECT_ACTIONS.GET_PROJECT));
 
     try {
       const { data } = await ProjectConnector.getInstance().getProject(
@@ -60,14 +60,14 @@ export const getProjectAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(PROJECT_ACTIONS.GET_PROJECT);
+    dispatch(setLoadedAction(PROJECT_ACTIONS.GET_PROJECT));
   }
 );
 
 export const getProjectInfoAsync = createAsyncThunk(
   PROJECT_ACTIONS.GET_PROJECT_INFO,
   async (projectId: string, { dispatch }) => {
-    setLoadingAction(PROJECT_ACTIONS.GET_PROJECT_INFO);
+    dispatch(setLoadingAction(PROJECT_ACTIONS.GET_PROJECT_INFO));
 
     try {
       const { data } = await ProjectConnector.getInstance().getProjectInfo(
@@ -78,14 +78,14 @@ export const getProjectInfoAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(PROJECT_ACTIONS.GET_PROJECT_INFO);
+    dispatch(setLoadedAction(PROJECT_ACTIONS.GET_PROJECT_INFO));
   }
 );
 
 export const createProjectAsync = createAsyncThunk(
   PROJECT_ACTIONS.CREATE_PROJECT,
   async (payload: CreateProjectPayload, { dispatch }) => {
-    setLoadingAction(PROJECT_ACTIONS.CREATE_PROJECT);
+    dispatch(setLoadingAction(PROJECT_ACTIONS.CREATE_PROJECT));
 
     try {
       await ProjectConnector.getInstance().createProject(payload);
@@ -93,6 +93,6 @@ export const createProjectAsync = createAsyncThunk(
       alert(e);
     }
 
-    setLoadedAction(PROJECT_ACTIONS.CREATE_PROJECT);
+    dispatch(setLoadedAction(PROJECT_ACTIONS.CREATE_PROJECT));
   }
 );

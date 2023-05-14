@@ -1,5 +1,3 @@
-@import '../../../styles/variables.scss';
-
 .main {
     display: flex;
     flex-direction: column;
@@ -8,4 +6,6 @@
     box-sizing: border-box;
     align-items: center;
     background-color: #FFFFFF;
+    min-height: 100vh;
+    height: 100%;
 }

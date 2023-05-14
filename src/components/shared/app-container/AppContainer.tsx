@@ -15,7 +15,7 @@ const routes: { [key: number | string]: string } = {
 };
 
 export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
-  const [activeTab, setActiveTab] = useState(-1);
+  const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const currentUser = useSelector(currentUserSelector);

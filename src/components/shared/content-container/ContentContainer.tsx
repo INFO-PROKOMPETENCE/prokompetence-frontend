@@ -17,7 +17,10 @@ export const ContentContainer: FC<PropsWithChildren<Props>> = ({
   return (
     <div
       className={cx(styles.main, { [styles.small]: padding === "small" })}
-      style={{ width: widthPx + "px", height: heightPx + "px" }}
+      style={{
+        width: widthPx ? widthPx + "px" : "100%",
+        height: heightPx + "px",
+      }}
     >
       {children}
     </div>
