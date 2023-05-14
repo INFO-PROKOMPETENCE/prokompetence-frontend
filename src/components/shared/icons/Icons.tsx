@@ -5,6 +5,7 @@ import styles from "./icons.module.scss";
 
 interface Props {
   isActive?: boolean;
+  onClick?: () => void;
 }
 
 export const DirectoryIcon: FC<Props> = ({ isActive }) => {
@@ -29,6 +30,6 @@ export const DirectoryIcon: FC<Props> = ({ isActive }) => {
   );
 };
 
-export const LogoIcon: FC = () => {
-  return <img src={logo} alt="" />;
+export const LogoIcon: FC<Props> = ({ onClick }) => {
+  return <img src={logo} alt="" onClick={onClick} />;
 };

@@ -5,6 +5,7 @@ import { Project } from "../../../typing/project";
 import { KeyTechnologies, LifeScenarios } from "../../../typing/catalog";
 import { CatalogTag } from "../catalog-tag";
 import styles from "./PreviewProjectCard.module.scss";
+import { useMediaQuery } from "@mui/material";
 
 interface Props {
   card: Project;
@@ -28,8 +29,10 @@ export const PreviewProjectCard: FC<Props> = ({
   lifeScenarios,
   onClick,
 }) => {
+  const matches = useMediaQuery("(min-width: 1280px)");
+
   return (
-    <ContentContainer widthPx={336} heightPx={423}>
+    <ContentContainer widthPx={matches ? 302 : 325} heightPx={423}>
       <div className={styles.main}>
         <div className={styles.header}>
           <div className={styles.tags}>

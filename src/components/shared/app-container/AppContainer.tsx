@@ -43,6 +43,10 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
     [navigate]
   );
 
+  const onCLickLogo = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
+
   return (
     <div className={styles.main}>
       <Header
@@ -50,6 +54,7 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
         changeTab={changePage}
         name={currentUser?.name || "User"}
         onClickLogout={() => {}}
+        onClickLogo={onCLickLogo}
       />
       <ContentAppContainer>{children}</ContentAppContainer>
     </div>

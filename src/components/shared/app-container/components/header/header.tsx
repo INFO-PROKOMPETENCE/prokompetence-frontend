@@ -8,6 +8,7 @@ interface Props {
   changeTab: (tab: number) => void;
   name: string;
   onClickLogout: () => void;
+  onClickLogo: () => void;
 }
 
 export const Header: FC<Props> = ({
@@ -15,11 +16,12 @@ export const Header: FC<Props> = ({
   changeTab,
   name,
   onClickLogout,
+  onClickLogo,
 }) => {
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-        <LogoIcon />
+        <LogoIcon onClick={onClickLogo} />
         <div className={styles.content}>
           <Tabs value={activeTab} onChange={(e, tab) => changeTab(tab)}>
             <Tab style={{ textTransform: "none" }} label="Каталог" />
