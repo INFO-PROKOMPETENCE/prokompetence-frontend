@@ -39,8 +39,6 @@ jobs:
           CR_REGISTRY: crpb0kudcf58ef799cic #id реестра образов
           CR_REPO: prokompetence-nginx
           IMAGE_TAG: ${{ github.sha }} # в этой переменной хранится хэш последнего коммита
-        with:
-          push: true
         run: |
           docker build ./.nginx/Dockerfile -t cr.yandex/$CR_REGISTRY/$CR_REPO:$IMAGE_TAG .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPO:$IMAGE_TAG
