@@ -34,10 +34,13 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }} # авторизованный ключ сервисного аккаунта
 
-      - name: Build Nginx for together composing
-        uses: docker/build-push-action@v3
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+          CR_REGISTRY: crpb0kudcf58ef799cic #id реестра образов
+          CR_REPO: prokompetence-nginx
+          IMAGE_TAG: ${{ github.sha }} # в этой переменной хранится хэш последнего коммита
         with:
-          context: ./.nginx
-          file: ./.nginx/Dockerfile
           push: true
-          tags: ${{ github.sha }}
+        run: |
+          docker build ./.nginx/Dockerfile -t cr.yandex/$CR_REGISTRY/$CR_REPO:$IMAGE_TAG .
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPO:$IMAGE_TAG
