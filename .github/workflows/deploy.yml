@@ -40,3 +40,4 @@ jobs:
           context: ./.nginx
           file: ./.nginx/Dockerfile
           push: true
+          tags: ${{ github.sha }}
