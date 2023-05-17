@@ -1,18 +1,8 @@
 version: '3.7'
-
 services:
-  nginx:
-    image: {{ env.NGINX_IMAGE }}
+  frontend-nginx:
+    container_name: prokompetence
+    image: {{ env.IMAGE_URL }}
     ports:
-      - '80:80'
-
-    restart: always
-   # environment:
-      # NGINX_CERT: {{ env.NGINX_CERT }}
-      # NGINX_CERT_KEY: {{ env.NGINX_CERT_KEY }}
-    depends_on:
-      - frontend
-
-  frontend:
-    image: {{ env.FRONTEND_IMAGE }}
+      - '3000:80'
     restart: always
