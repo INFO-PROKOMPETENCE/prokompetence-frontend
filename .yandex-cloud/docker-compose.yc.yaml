@@ -2,7 +2,7 @@ version: '3.7'
 services:
   frontend-nginx:
     container_name: prokompetence
-    image: {{ env.IMAGE_URL }}
+    image: {{ env.FRONTEND_IMAGE }}
     ports:
       - '3000:80'
     restart: always
