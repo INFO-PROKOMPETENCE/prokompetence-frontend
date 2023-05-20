@@ -22,20 +22,3 @@ jobs:
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPO:latest .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPO:latest
-
-  update-yc:
-    runs-on: ubuntu-latest
-    needs: [ build-frontend ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Build, tag, and push image to Yandex Cloud Container Registry
-        env:
-          FRONTEND_IMAGE: ${{ env.FRONTEND_IMAGE }}
-        run: |
-          yc compute instance update-container fhmigc0uu0qi21c6k4mv \
-            --container-name=my_vm_new_version \
-            --container-image=${{ env.FRONTEND_IMAGE }} \
-            --container-stdin=false \
-            --container-restart-policy=Never
