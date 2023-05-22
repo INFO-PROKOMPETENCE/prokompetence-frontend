@@ -78,8 +78,8 @@ export const MainPage: FC = () => {
 
   return (
     <div className={styles.main}>
-      { <button onClick={login}>login</button>
-      <button onClick={getNewToken}>get new token</button>}
+      <button onClick={login}>login</button>
+      <button onClick={getNewToken}>get new token</button>
       <div className={styles.header}>Проекты - {projects.totalCount}</div>
       <div className={styles.controls}>
         <TextField variant="outlined" placeholder="Найти проект" fullWidth />
