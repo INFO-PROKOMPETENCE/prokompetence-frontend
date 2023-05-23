@@ -98,15 +98,6 @@ export const MainPage: FC = () => {
               onClick={() => goToProject(project.id)}
             />
           ))}
-          {projects.items.map((project) => (
-            <PreviewProjectCard
-              key={project.id}
-              card={project}
-              keyTechnologies={keyTechnologies}
-              lifeScenarios={lifeScenarios}
-              onClick={() => goToProject(project.id)}
-            />
-          ))}
         </Hidder>
       </div>
       <Drawer
