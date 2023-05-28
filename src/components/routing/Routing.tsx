@@ -8,6 +8,7 @@ export const Routing: FC = () => {
   const MainPage = lazy(() => import("../../pages/main-page/index"));
   const ProjectPage = lazy(() => import("../../pages/project-page/index"));
   const LoginPage = lazy(() => import("../../pages/login-page/index"));
+  const ProfilePage = lazy(() => import("../../pages/profile-page/index"));
   const NotFoundPage = lazy(() => import("./components/not-found-page/index"));
 
   return (
@@ -23,6 +24,7 @@ export const Routing: FC = () => {
           <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
           <Route path={ROUTES.PROJECT_PAGE} element={<ProjectPage />} />
           <Route path={ROUTES.LOGIN_PAGE} element={<LoginPage />} />
+          <Route path={ROUTES.PROFILE_PAGE} element={<ProfilePage />} />
           <Route path={"*"} element={<NotFoundPage />} />
         </Routes>
       </AppContainer>

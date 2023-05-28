@@ -100,7 +100,7 @@ export const ProjectPage: FC = () => {
                   />
                   <DescriptionContainer
                     title="Стек"
-                    value="Стек"
+                    value={projectInfo.stack}
                     isStrongHeader
                   />
                 </div>

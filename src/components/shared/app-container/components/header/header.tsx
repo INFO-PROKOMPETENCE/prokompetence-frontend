@@ -10,6 +10,7 @@ interface Props {
   name: string;
   onClickLogout: () => void;
   onClickLogo: () => void;
+  onClickProfile: () => void;
 }
 
 export const Header: FC<Props> = ({
@@ -18,6 +19,7 @@ export const Header: FC<Props> = ({
   name,
   onClickLogout,
   onClickLogo,
+  onClickProfile,
 }) => {
   const { pathname } = useLocation();
   const [isShow, setIsShow] = useState<boolean>(true);
@@ -43,7 +45,9 @@ export const Header: FC<Props> = ({
               <Tab style={{ textTransform: "none" }} label="Мой проект" />
             </Tabs>
             <div className={styles.data}>
-              <div className={styles.name}>{name}</div>
+              <div className={styles.name} onClick={onClickProfile}>
+                {name}
+              </div>
               <Divider orientation="vertical" variant="middle" flexItem />
               <Button variant="contained" onClick={onClickLogout}>
                 Выход

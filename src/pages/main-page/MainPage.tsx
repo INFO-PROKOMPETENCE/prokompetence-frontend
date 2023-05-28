@@ -5,12 +5,6 @@ import { useNavigate } from "react-router";
 import { Hidder } from "../../components/shared/hidder";
 import { PreviewProjectCard } from "../../components/shared/preview-project-card/PreviewProjectCard";
 import {
-  getCurrentUserAsync,
-  getRefreshTokenAsync,
-  loginUserAsync,
-  registerUserAsync,
-} from "../../redux-store/actions";
-import {
   getKeyTechnologiesAsync,
   getLifeScenariosAsync,
 } from "../../redux-store/actions/catalog.action";
@@ -19,10 +13,8 @@ import {
   PROJECT_ACTIONS,
 } from "../../redux-store/actions/project.action";
 import {
-  currentUserSelector,
   isLoadingByKeysSelector,
   projectsSelector,
-  refreshTokenSelector,
 } from "../../redux-store/selectors";
 import {
   keyTechnologiesSelector,
@@ -33,7 +25,6 @@ import styles from "./MainPage.module.scss";
 
 export const MainPage: FC = () => {
   const [isOpenFiltersBar, setIsOpenFiltersBar] = useState<boolean>(false);
-  const refresh = useSelector(refreshTokenSelector);
   const projects = useSelector(projectsSelector);
   const isLoadingProjects = useSelector(
     isLoadingByKeysSelector([PROJECT_ACTIONS.GET_PROJECTS])
@@ -55,20 +46,6 @@ export const MainPage: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  const login = useCallback(() => {
-    dispatch(
-      loginUserAsync({
-        login: "aoaoa4",
-        password: "aoaoa4",
-      })
-    );
-  }, [dispatch]);
-  const getNewToken = useCallback(() => {
-    if (refresh) {
-      dispatch(getRefreshTokenAsync({ refreshToken: refresh }));
-    }
-  }, [dispatch, refresh]);
-
   const goToProject = useCallback(
     (projectId: string) => {
       navigate(`/projects/${projectId}`);
@@ -78,8 +55,6 @@ export const MainPage: FC = () => {
 
   return (
     <div className={styles.main}>
-      <button onClick={login}>login</button>
-      <button onClick={getNewToken}>get new token</button>
       <div className={styles.header}>Проекты - {projects.totalCount}</div>
       <div className={styles.controls}>
         <TextField variant="outlined" placeholder="Найти проект" fullWidth />

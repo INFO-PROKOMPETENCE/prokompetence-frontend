@@ -57,6 +57,10 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
     navigate("/login");
   }, [dispatch, navigate]);
 
+  const profile = useCallback(() => {
+    navigate("/profile");
+  }, [navigate]);
+
   return (
     <div className={styles.main}>
       <Header
@@ -65,6 +69,7 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
         name={currentUser?.name || "User"}
         onClickLogout={logout}
         onClickLogo={onCLickLogo}
+        onClickProfile={profile}
       />
       <ContentAppContainer>{children}</ContentAppContainer>
     </div>

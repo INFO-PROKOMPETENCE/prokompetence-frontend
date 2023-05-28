@@ -1,7 +1,6 @@
 export interface Project {
   id: string;
   name: string;
-  shortDescription: string;
   maxStudentsCountInTeam: number;
   maxTeamsCount: number;
   recordedTeamsCount: number;
@@ -35,4 +34,5 @@ export interface ProjectInformation {
   description: string;
   finalProject: string;
   teams: string[];
+  stack: string;
 }
