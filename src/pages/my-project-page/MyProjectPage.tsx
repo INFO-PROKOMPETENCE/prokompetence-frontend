@@ -1,28 +1,30 @@
+import { Button } from "@mui/material";
 import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { CatalogTag } from "../../components/shared/catalog-tag";
 import { ContentContainer } from "../../components/shared/content-container/ContentContainer";
 import { Hidder } from "../../components/shared/hidder";
+import { ProjectAddInfoContainer } from "../../components/shared/project-add-info-container";
+import { ProjectDescriptionContainer } from "../../components/shared/project-description-container";
 import {
+  PROJECT_ACTIONS,
   getKeyTechnologiesAsync,
   getLifeScenariosAsync,
   getProjectAsync,
   getProjectInfoAsync,
-  PROJECT_ACTIONS,
 } from "../../redux-store/actions";
 import {
-  currentProjectInfoSelector,
   currentProjectSelector,
+  currentProjectInfoSelector,
   isLoadingByKeysSelector,
   keyTechnologiesSelector,
   lifeScenariosSelector,
 } from "../../redux-store/selectors";
 import { useAppDispatch } from "../../redux-store/store-manager";
-import styles from "./ProjectPage.module.scss";
-import { ProjectDescriptionContainer } from "../../components/shared/project-description-container";
+import styles from "./MyProjectPage.module.scss";
 
-export const ProjectPage: FC = () => {
+export const MyProjectPage: FC = () => {
   const { projectId } = useParams();
   const project = useSelector(currentProjectSelector);
   const projectInfo = useSelector(currentProjectInfoSelector);
@@ -80,56 +82,77 @@ export const ProjectPage: FC = () => {
                 </div>
                 <div className={styles.title}>{project.name}</div>
               </div>
-              <div className={styles.content}>
+              <ContentContainer>
+                <div className={styles.description}>
+                  <ProjectDescriptionContainer
+                    title="Цель проекта"
+                    value={projectInfo.finalProject}
+                    isStrongHeader
+                  />
+                  <ProjectDescriptionContainer
+                    title="Описание проекта"
+                    value={projectInfo.description}
+                    isStrongHeader
+                  />
+                  <ProjectDescriptionContainer
+                    title="Ожидаемые результаты"
+                    value="Ожидаемые результаты"
+                    isStrongHeader
+                  />
+                  <ProjectDescriptionContainer
+                    title="Стек"
+                    value={projectInfo.stack}
+                    isStrongHeader
+                  />
+                </div>
+              </ContentContainer>
+            </div>
+            <div className={styles.sideContent}>
+              <div className={styles.wrapper}>
                 <ContentContainer>
-                  <div className={styles.description}>
+                  <div className={styles.container}>
+                    <div className={styles.sideTitle}>Информация</div>
                     <ProjectDescriptionContainer
-                      title="Цель проекта"
-                      value={projectInfo.finalProject}
-                      isStrongHeader
+                      title="Организация:"
+                      value={project.organizationName}
+                      smallGap
                     />
                     <ProjectDescriptionContainer
-                      title="Описание проекта"
-                      value={projectInfo.description}
-                      isStrongHeader
+                      title="Куратор:"
+                      value={project.curatorName}
+                      smallGap
                     />
                     <ProjectDescriptionContainer
-                      title="Ожидаемые результаты"
-                      value="Ожидаемые результаты"
-                      isStrongHeader
-                    />
-                    <ProjectDescriptionContainer
-                      title="Стек"
-                      value={projectInfo.stack}
-                      isStrongHeader
+                      title="Контакты:"
+                      value="contacts"
+                      smallGap
                     />
                   </div>
                 </ContentContainer>
-
-                <div className={styles.sideContent}>
-                  <div className={styles.wrapper}>
-                    <ContentContainer>
-                      <div className={styles.container}>
-                        <div className={styles.sideTitle}>Информация</div>
-                        <ProjectDescriptionContainer
-                          title="Организация:"
-                          value={project.organizationName}
-                          smallGap
-                        />
-                        <ProjectDescriptionContainer
-                          title="Куратор:"
-                          value={project.curatorName}
-                          smallGap
-                        />
-                        <ProjectDescriptionContainer
-                          title="Контакты:"
-                          value="contacts"
-                          smallGap
-                        />
-                      </div>
-                    </ContentContainer>
+              </div>
+              <div className={styles.wrapper}>
+                <ContentContainer>
+                  <div className={styles.container}>
+                    <div className={styles.sideTitle}>
+                      Дополнительная информация
+                    </div>
+                    <ProjectAddInfoContainer
+                      title="Ссылка на репозиторий:"
+                      name=""
+                      onChange={() => {}}
+                      value=""
+                    />
+                    <ProjectAddInfoContainer
+                      title="Ссылка на Систему управления проектами(Trello, Jira и т.п):"
+                      name=""
+                      onChange={() => {}}
+                      value=""
+                    />
+                    <Button variant="contained" fullWidth>
+                      Сохранить
+                    </Button>
                   </div>
-                </div>
+                </ContentContainer>
               </div>
             </div>
           </>

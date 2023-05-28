@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .title {
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 20px;
+    color: rgba(25, 28, 48, 0.9);
+  }
+}

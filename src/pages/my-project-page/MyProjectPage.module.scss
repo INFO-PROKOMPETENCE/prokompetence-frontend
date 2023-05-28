@@ -1,0 +1,74 @@
+@import "../../styles/variables.scss";
+
+.main {
+  display: flex;
+  gap: 48px;
+
+  @media screen and (max-width: $desktop-width) {
+    gap: 36px;
+  }
+
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    width: 100%;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .tags {
+        display: flex;
+        gap: 8px;
+      }
+
+      .title {
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 28px;
+        color: rgba(25, 28, 48, 0.9);
+      }
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+  }
+
+  .sideContent {
+    width: 336px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+
+    @media screen and (max-width: $desktop-width) {
+      width: 280px;
+    }
+
+    .wrapper {
+      width: 100%;
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .sideTitle {
+          font-weight: 800;
+          font-size: 17px;
+          line-height: 28px;
+          color: rgba(25, 28, 48, 0.9);
+        }
+
+        button {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+}

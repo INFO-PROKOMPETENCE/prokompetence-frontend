@@ -15,6 +15,7 @@ import { Header } from "./components/header";
 const routes: { [key: number | string]: string } = {
   // TO DO
   0: "/",
+  1: "/my-project",
 };
 
 export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
