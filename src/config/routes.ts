@@ -1,5 +1,5 @@
 export enum ROUTES {
-  NOT_AUTH_PAGE = "/auth",
+  LOGIN_PAGE = "/login",
   MAIN_PAGE = "/",
   PROJECT_PAGE = "projects/:projectId",
 }

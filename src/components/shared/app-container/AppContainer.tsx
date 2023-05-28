@@ -2,7 +2,10 @@ import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
-import { getCurrentUserAsync } from "../../../redux-store/actions";
+import {
+  getCurrentUserAsync,
+  logoutUserAction,
+} from "../../../redux-store/actions";
 import { currentUserSelector } from "../../../redux-store/selectors";
 import { useAppDispatch } from "../../../redux-store/store-manager";
 import styles from "./AppContainer.module.scss";
@@ -23,8 +26,10 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getCurrentUserAsync());
-  }, [dispatch]);
+    if (!pathname.includes("login")) {
+      dispatch(getCurrentUserAsync());
+    }
+  }, [dispatch, pathname]);
 
   useEffect(() => {
     Object.keys(routes).forEach((key) => {
@@ -47,13 +52,18 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
     navigate("/");
   }, [navigate]);
 
+  const logout = useCallback(() => {
+    dispatch(logoutUserAction());
+    navigate("/login");
+  }, [dispatch, navigate]);
+
   return (
     <div className={styles.main}>
       <Header
         activeTab={activeTab}
         changeTab={changePage}
         name={currentUser?.name || "User"}
-        onClickLogout={() => {}}
+        onClickLogout={logout}
         onClickLogo={onCLickLogo}
       />
       <ContentAppContainer>{children}</ContentAppContainer>

@@ -28,7 +28,7 @@ export const getKeyTechnologiesAsync = createAsyncThunk(
         await CatalogConnector.getInstance().getKeyTechnologies();
       dispatch(setKeyTechnologiesAction(data));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(CATALOG_ACTIONS.GET_KEY_TECHNOLOGIES));
@@ -43,7 +43,7 @@ export const getLifeScenariosAsync = createAsyncThunk(
       const { data } = await CatalogConnector.getInstance().getLifeScenarios();
       dispatch(setLifeScenariosAction(data));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(CATALOG_ACTIONS.GET_LIFE_SCENARIOS));

@@ -6,6 +6,7 @@ import styles from "./icons.module.scss";
 interface Props {
   isActive?: boolean;
   onClick?: () => void;
+  classname?: string;
 }
 
 export const DirectoryIcon: FC<Props> = ({ isActive }) => {
@@ -30,6 +31,6 @@ export const DirectoryIcon: FC<Props> = ({ isActive }) => {
   );
 };
 
-export const LogoIcon: FC<Props> = ({ onClick }) => {
-  return <img src={logo} alt="" onClick={onClick} />;
+export const LogoIcon: FC<Props> = ({ onClick, classname }) => {
+  return <img src={logo} alt="" onClick={onClick} className={classname} />;
 };

@@ -17,6 +17,7 @@ export enum USER_ACTIONS {
   SET_CURRENT_USER = "[USER] SET_CURRENT_USER",
   REGISTER_USER = "[USER] REGISTER_USER",
   LOGIN_USER = "[USER] LOGIN_USER",
+  LOGOUT_USER = "[USER] LOGOUT_USER",
 }
 
 export const setTokenAction = createAction<string>(USER_ACTIONS.SET_TOKEN);
@@ -29,6 +30,8 @@ export const setCurrentUserAction = createAction<CurrentUser>(
   USER_ACTIONS.SET_CURRENT_USER
 );
 
+export const logoutUserAction = createAction<void>(USER_ACTIONS.LOGOUT_USER);
+
 export const registerUserAsync = createAsyncThunk(
   USER_ACTIONS.REGISTER_USER,
   async (payload: RegisterUserPayload, { dispatch }) => {
@@ -36,13 +39,15 @@ export const registerUserAsync = createAsyncThunk(
 
     try {
       await UserConnector.getInstance().registerUser(payload);
-      const { name, ...data } = payload;
-      await dispatch(loginUserAsync(data));
-    } catch (e) {
-      alert(e);
-    }
 
-    dispatch(setLoadedAction(USER_ACTIONS.REGISTER_USER));
+      dispatch(setLoadedAction(USER_ACTIONS.REGISTER_USER));
+      return true;
+    } catch (e) {
+      console.log(e);
+
+      dispatch(setLoadedAction(USER_ACTIONS.REGISTER_USER));
+      return false;
+    }
   }
 );
 
@@ -55,11 +60,15 @@ export const loginUserAsync = createAsyncThunk(
       const { data } = await UserConnector.getInstance().loginUser(payload);
       dispatch(setTokenAction(data.accessToken));
       dispatch(setRefreshTokenAction(data.refreshToken));
-    } catch (e) {
-      alert(e);
-    }
 
-    dispatch(setLoadedAction(USER_ACTIONS.LOGIN_USER));
+      dispatch(setLoadedAction(USER_ACTIONS.LOGIN_USER));
+      return true;
+    } catch (e) {
+      console.log(e);
+
+      dispatch(setLoadedAction(USER_ACTIONS.LOGIN_USER));
+      return false;
+    }
   }
 );
 
@@ -73,7 +82,7 @@ export const getRefreshTokenAsync = createAsyncThunk(
       dispatch(setTokenAction(data.accessToken));
       dispatch(setRefreshTokenAction(data.refreshToken));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(USER_ACTIONS.GET_REFRESH_TOKEN));
@@ -89,7 +98,7 @@ export const getCurrentUserAsync = createAsyncThunk(
       const { data } = await UserConnector.getInstance().getCurrentUser();
       dispatch(setCurrentUserAction(data));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(USER_ACTIONS.GET_CURRENT_USER));

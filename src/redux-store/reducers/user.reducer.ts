@@ -2,6 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { UserStore } from "../../typing/store/user.store";
 import { LocalStorageManager, STORAGE_KEYS } from "../../utils";
 import {
+  logoutUserAction,
   setCurrentUserAction,
   setRefreshTokenAction,
   setTokenAction,
@@ -63,9 +64,25 @@ const setCurrentUser = (
   };
 };
 
+const logoutUser = (
+  state: UserStore,
+  action: ReturnType<typeof logoutUserAction>
+): UserStore => {
+  LocalStorageManager.removeFromLocalStorage(STORAGE_KEYS.REFRESH_JWT);
+  LocalStorageManager.removeFromLocalStorage(STORAGE_KEYS.JWT);
+  LocalStorageManager.removeFromLocalStorage(STORAGE_KEYS.KEY_TECHNOLOGIES);
+  LocalStorageManager.removeFromLocalStorage(STORAGE_KEYS.LIFE_SCENARIOS);
+  return {
+    ...state,
+    refreshToken: null,
+    currentUser: null,
+  };
+};
+
 export const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setTokenAction, setToken)
     .addCase(setRefreshTokenAction, setRefreshToken)
-    .addCase(setCurrentUserAction, setCurrentUser);
+    .addCase(setCurrentUserAction, setCurrentUser)
+    .addCase(logoutUserAction, logoutUser);
 });

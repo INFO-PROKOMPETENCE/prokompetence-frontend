@@ -5,6 +5,7 @@
     width: 100%;
     background: #FFFFFF;
     box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.12);
+    height: 64px;
     
     justify-content: center;
     
@@ -16,6 +17,11 @@
 
         @media screen and (max-width: $desktop-width) {
             max-width: $tablet-width;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
         }
 
         .content {

@@ -39,7 +39,7 @@ export const getProjectsAsync = createAsyncThunk(
       const { data } = await ProjectConnector.getInstance().getProjects();
       dispatch(setProjectsAction(data));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(PROJECT_ACTIONS.GET_PROJECTS));
@@ -57,7 +57,7 @@ export const getProjectAsync = createAsyncThunk(
       );
       dispatch(setProjectAction(data));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(PROJECT_ACTIONS.GET_PROJECT));
@@ -75,7 +75,7 @@ export const getProjectInfoAsync = createAsyncThunk(
       );
       dispatch(setProjectInfoAction(data));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(PROJECT_ACTIONS.GET_PROJECT_INFO));
@@ -90,7 +90,7 @@ export const createProjectAsync = createAsyncThunk(
     try {
       await ProjectConnector.getInstance().createProject(payload);
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
 
     dispatch(setLoadedAction(PROJECT_ACTIONS.CREATE_PROJECT));
