@@ -1,4 +1,14 @@
-import { Button, Drawer, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Button,
+  Drawer,
+  FormControlLabel,
+  FormControlLabelProps,
+  Radio,
+  RadioGroup,
+  TextField,
+  useRadioGroup,
+} from "@mui/material";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -80,8 +90,90 @@ export const MainPage: FC = () => {
         open={isOpenFiltersBar}
         onClose={() => setIsOpenFiltersBar(false)}
       >
-        <div className={styles.filtersControl}>Фильтры</div>
+        <div className={styles.filtersControl}>
+          <div className={styles.title}>Фильтры</div>
+          <div className={styles.filters}>
+            <div className={styles.radio}>
+              <RadioGroup name="use-radio-group" defaultValue="first">
+                <MyFormControlLabel
+                  value="first"
+                  label="Показать закрытые проекты"
+                  control={<Radio />}
+                />
+                <MyFormControlLabel
+                  value="second"
+                  label="Показать заполненные проекты"
+                  control={<Radio />}
+                />
+              </RadioGroup>
+            </div>
+            <div className={styles.filter}>
+              <div className={styles.filterTitle}>Тип проекта</div>
+              <Autocomplete
+                multiple
+                id="tags-standard"
+                options={[]}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Тип проекта"
+                  />
+                )}
+                freeSolo
+              />
+            </div>
+            <div className={styles.filter}>
+              <div className={styles.filterTitle}>Заказчик</div>
+              <Autocomplete
+                multiple
+                id="tags-standard"
+                options={[]}
+                renderInput={(params) => (
+                  <TextField {...params} variant="outlined" label="Заказчик" />
+                )}
+                freeSolo
+              />
+              <div className={styles.filter}>
+                <div className={styles.filterTitle}>Ключевая технология</div>
+                <Autocomplete
+                  multiple
+                  id="tags-standard"
+                  options={[]}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Ключевая технология"
+                    />
+                  )}
+                  freeSolo
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.buttons}>
+            <Button variant="contained" fullWidth>
+              Применить
+            </Button>
+            <Button variant="contained" fullWidth color="secondary">
+              Сбросить
+            </Button>
+          </div>
+        </div>
       </Drawer>
     </div>
   );
+};
+
+const MyFormControlLabel = (props: FormControlLabelProps) => {
+  const radioGroup = useRadioGroup();
+
+  let checked = false;
+
+  if (radioGroup) {
+    checked = radioGroup.value === props.value;
+  }
+
+  return <FormControlLabel checked={checked} {...props} />;
 };
