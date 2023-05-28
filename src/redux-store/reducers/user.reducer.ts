@@ -4,6 +4,7 @@ import { LocalStorageManager, STORAGE_KEYS } from "../../utils";
 import {
   logoutUserAction,
   setCurrentUserAction,
+  setProtfolioAction,
   setRefreshTokenAction,
   setTokenAction,
 } from "../actions/user.action";
@@ -22,6 +23,7 @@ const initialState: UserStore = {
       false
     );
   })(),
+  portfolio: null,
 };
 
 const setToken = (
@@ -79,10 +81,21 @@ const logoutUser = (
   };
 };
 
+const setProtfolio = (
+  state: UserStore,
+  action: ReturnType<typeof setProtfolioAction>
+): UserStore => {
+  return {
+    ...state,
+    portfolio: action.payload,
+  };
+};
+
 export const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setTokenAction, setToken)
     .addCase(setRefreshTokenAction, setRefreshToken)
     .addCase(setCurrentUserAction, setCurrentUser)
-    .addCase(logoutUserAction, logoutUser);
+    .addCase(logoutUserAction, logoutUser)
+    .addCase(setProtfolioAction, setProtfolio);
 });

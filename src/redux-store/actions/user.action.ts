@@ -1,8 +1,10 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { UserConnector } from "../../api/user-connector";
+import { Store } from "../../typing/store/store";
 import {
   CurrentUser,
   LoginUserPayload,
+  Portfolio,
   RefreshTokenPayload,
   RegisterUserPayload,
 } from "../../typing/user";
@@ -18,6 +20,8 @@ export enum USER_ACTIONS {
   REGISTER_USER = "[USER] REGISTER_USER",
   LOGIN_USER = "[USER] LOGIN_USER",
   LOGOUT_USER = "[USER] LOGOUT_USER",
+  GET_PORTFOLIO = "[USER] GET_PORTFOLIO",
+  SET_PORTFOLIO = "[USER] SET_PORTFOLIO",
 }
 
 export const setTokenAction = createAction<string>(USER_ACTIONS.SET_TOKEN);
@@ -28,6 +32,10 @@ export const setRefreshTokenAction = createAction<string>(
 
 export const setCurrentUserAction = createAction<CurrentUser>(
   USER_ACTIONS.SET_CURRENT_USER
+);
+
+export const setProtfolioAction = createAction<Portfolio>(
+  USER_ACTIONS.SET_PORTFOLIO
 );
 
 export const logoutUserAction = createAction<void>(USER_ACTIONS.LOGOUT_USER);
@@ -102,5 +110,22 @@ export const getCurrentUserAsync = createAsyncThunk(
     }
 
     dispatch(setLoadedAction(USER_ACTIONS.GET_CURRENT_USER));
+  }
+);
+
+export const getPortfolioAsync = createAsyncThunk(
+  USER_ACTIONS.GET_PORTFOLIO,
+  async (_, { dispatch, getState }) => {
+    dispatch(setLoadingAction(USER_ACTIONS.GET_PORTFOLIO));
+
+    try {
+      const userId = (getState() as Store).user.currentUser?.id;
+      const { data } = await UserConnector.getInstance().getPortfolio(userId!);
+      dispatch(setProtfolioAction(data));
+    } catch (e) {
+      console.log(e);
+    }
+
+    dispatch(setLoadedAction(USER_ACTIONS.GET_PORTFOLIO));
   }
 );

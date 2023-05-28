@@ -1,3 +1,5 @@
+import { Project } from "./project";
+
 export interface LoginUserPayload {
   login: string;
   password: string;
@@ -19,4 +21,13 @@ export interface LoginUserResponse {
 
 export interface CurrentUser {
   name: string;
+  id: string;
 }
+
+export interface PortfolioProject {
+  header: Project;
+  rating: number;
+  comment: string;
+}
+
+export type Portfolio = PortfolioProject[];

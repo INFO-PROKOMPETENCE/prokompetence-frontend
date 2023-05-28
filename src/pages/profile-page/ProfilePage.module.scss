@@ -1,0 +1,131 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  .info {
+    display: flex;
+    gap: 24px;
+
+    .left {
+      display: flex;
+      gap: 24px;
+      flex-basis: 50%;
+
+      .avatar {
+        width: 196px;
+        height: 196px;
+        background: #d9d9d9;
+        border-radius: 12px;
+      }
+
+      .mainInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .name {
+          font-weight: 800;
+          font-size: 36px;
+          line-height: 40px;
+          color: rgba(25, 28, 48, 0.9);
+        }
+
+        .group {
+          font-weight: 500;
+          font-size: 17px;
+          line-height: 28px;
+          color: #000000;
+        }
+
+        .mail {
+          font-weight: 500;
+          font-size: 17px;
+          line-height: 28px;
+          color: #000000;
+        }
+      }
+    }
+
+    .rigth {
+      flex-basis: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .title {
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 28px;
+        color: rgba(25, 28, 48, 0.9);
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  }
+
+  .competenceis {
+    display: flex;
+    gap: 24px;
+  }
+
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .title {
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    .projectsList {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.infoContainer {
+  display: flex;
+  gap: 24px;
+
+  .infoContainerTitle {
+    font-weight: 800;
+    font-size: 17px;
+    line-height: 28px;
+    color: rgba(25, 28, 48, 0.9);
+  }
+
+  .infoContainerValue {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    color: rgba(25, 28, 48, 0.9);
+  }
+}
+
+.competenciesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-basis: 50%;
+
+  .competenciesContainerTitle {
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .competenciesContainerTags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}

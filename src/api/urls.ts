@@ -14,6 +14,8 @@ export const URLS = {
     LOGIN_USER: "/api/users/login",
     REFRESH_TOKEN: "/api/users/refresh-token",
     GET_CURRENT_USER: "/api/users/current",
+    GET_PORTFOLIO: (userId: string) =>
+      `/api/portfolio/users/${userId}/projects`,
   },
   [ConnectorFlow.ORGANIZATION]: {
     GET_MY_ORGANOZATION: "api/organizations/my",

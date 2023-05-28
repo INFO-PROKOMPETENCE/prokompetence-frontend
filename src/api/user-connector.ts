@@ -5,6 +5,7 @@ import {
   CurrentUser,
   LoginUserPayload,
   LoginUserResponse,
+  Portfolio,
   RefreshTokenPayload,
   RegisterUserPayload,
 } from "../typing/user";
@@ -32,5 +33,9 @@ export class UserConnector extends PrimaryConnector<ConnectorFlow.USER> {
 
   public getCurrentUser = () => {
     return axios.get<CurrentUser>(this.urls.GET_CURRENT_USER);
+  };
+
+  public getPortfolio = (userId: string) => {
+    return axios.get<Portfolio>(this.urls.GET_PORTFOLIO(userId));
   };
 }
