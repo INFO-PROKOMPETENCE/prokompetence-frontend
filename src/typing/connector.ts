@@ -3,4 +3,5 @@ export enum ConnectorFlow {
   USER,
   ORGANIZATION,
   CATALOG,
+  TEAMS,
 }

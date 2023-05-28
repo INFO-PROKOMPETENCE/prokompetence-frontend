@@ -26,4 +26,7 @@ export const URLS = {
     GET_LIFE_SCENARIOS: "api/catalogs/life-scenarios",
     GET_TEAM_ROLES: "api/catalogs/team-roles",
   },
+  [ConnectorFlow.TEAMS]: {
+    GET_MY_TEAM: "api/teams/my",
+  },
 };

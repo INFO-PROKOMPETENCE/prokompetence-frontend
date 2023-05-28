@@ -93,6 +93,7 @@ export const LoginPage: FC = () => {
               variant="contained"
               onClick={submitForm}
               disabled={hasError}
+              type="submit"
             >
               Продолжить
             </Button>

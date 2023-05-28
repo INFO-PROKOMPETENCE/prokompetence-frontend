@@ -10,6 +10,7 @@ import {
   catalogReducer,
   commonReducer,
   projectReducer,
+  teamReducer,
   userReducer,
 } from "./reducers";
 
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   user: userReducer,
   project: projectReducer,
   catalog: catalogReducer,
+  team: teamReducer,
 });
 
 export const store = configureStore({
