@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../redux-store/store-manager";
 
 if (process.env.NODE_ENV === "production") {
-  axios.defaults.baseURL = "http://130.193.48.119";
+  axios.defaults.baseURL = "http://84.201.158.99";
 }
 
 axios.interceptors.request.use((config) => {
