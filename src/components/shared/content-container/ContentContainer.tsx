@@ -6,6 +6,7 @@ interface Props {
   padding?: "normal" | "small";
   widthPx?: number;
   heightPx?: number;
+  onClick?: () => void;
 }
 
 export const ContentContainer: FC<PropsWithChildren<Props>> = ({
@@ -13,6 +14,7 @@ export const ContentContainer: FC<PropsWithChildren<Props>> = ({
   padding,
   heightPx,
   widthPx,
+  onClick,
 }) => {
   return (
     <div
@@ -21,6 +23,7 @@ export const ContentContainer: FC<PropsWithChildren<Props>> = ({
         width: widthPx ? widthPx + "px" : "100%",
         height: heightPx + "px",
       }}
+      onClick={onClick}
     >
       {children}
     </div>

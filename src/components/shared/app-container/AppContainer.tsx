@@ -19,7 +19,7 @@ const routes: { [key: number | string]: string } = {
 };
 
 export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<number | boolean>(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const currentUser = useSelector(currentUserSelector);
@@ -33,12 +33,14 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
   }, [dispatch, pathname]);
 
   useEffect(() => {
+    let tab: number | boolean = false;
     Object.keys(routes).forEach((key) => {
       if (routes[key] === pathname) {
-        setActiveTab(+key);
+        tab = +key;
         return;
       }
     });
+    setActiveTab(tab);
   }, [pathname]);
 
   const changePage = useCallback(

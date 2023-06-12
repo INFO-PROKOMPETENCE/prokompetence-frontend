@@ -6,6 +6,7 @@ import { KeyTechnologies, LifeScenarios } from "../../../typing/catalog";
 import { CatalogTag } from "../catalog-tag";
 import styles from "./PreviewProjectCard.module.scss";
 import { useMediaQuery } from "@mui/material";
+import { Link } from "react-router-dom";
 
 interface Props {
   card: Project;
@@ -24,6 +25,7 @@ export const PreviewProjectCard: FC<Props> = ({
     name,
     organizationName,
     recordedTeamsCount,
+    id,
   },
   keyTechnologies,
   lifeScenarios,
@@ -32,7 +34,11 @@ export const PreviewProjectCard: FC<Props> = ({
   const matches = useMediaQuery("(min-width: 1280px)");
 
   return (
-    <ContentContainer widthPx={matches ? 302 : 325} heightPx={423}>
+    <ContentContainer
+      widthPx={matches ? 302 : 325}
+      heightPx={423}
+      // onClick={onClick}
+    >
       <div className={styles.main}>
         <div className={styles.header}>
           <div className={styles.tags}>
@@ -51,9 +57,9 @@ export const PreviewProjectCard: FC<Props> = ({
               type="keyTechnology"
             />
           </div>
-          <div className={styles.title} onClick={onClick}>
+          <Link to={`/projects/${id}`} className={styles.title}>
             {name}
-          </div>
+          </Link>
         </div>
         <div className={styles.bottom}>
           <div className={styles.info}>

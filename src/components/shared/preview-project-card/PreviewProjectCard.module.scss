@@ -1,78 +1,78 @@
 .main {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
 
-    .header {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-
-        .tags {
-            display: flex;
-            gap: 8px;
-        }
-        
-        .title {
-            font-weight: 800;
-            font-size: 17px;
-            line-height: 28px;
-            letter-spacing: -0.5px;
-            color: rgba(25, 28, 48, 0.9);
-
-            cursor: pointer;
-
-            &:hover {
-                color: #526ED3;
-            }
-        }
-    }
-    .bottom {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-
-        .info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .numbers {
-            display: flex;
-            justify-content: space-between;
-        }
-    }
-}
-
-.infoContainer {
+  .header {
     display: flex;
     flex-direction: column;
+    gap: 18px;
 
-    &.centered {
-        align-items: center;
+    .tags {
+      display: flex;
+      gap: 8px;
     }
 
     .title {
-        font-weight: 800;
-        font-size: 15px;
-        line-height: 24px;
-        color: rgba(25, 28, 48, 0.9);
+      font-weight: 800;
+      font-size: 17px;
+      line-height: 28px;
+      letter-spacing: -0.5px;
+      color: rgba(25, 28, 48, 0.9);
+
+      text-decoration: none;
+
+      &:hover {
+        color: #526ed3;
+      }
+    }
+  }
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .value {
-        font-weight: 500;
-        font-size: 15px;
-        line-height: 24px;
-        color: #000000;
-
-        &.strong {
-            font-weight: 800;
-            font-size: 24px;
-            line-height: 28px;
-            font-feature-settings: 'liga' off;
-            color: rgba(27, 31, 59, 0.65);
-        }
+    .numbers {
+      display: flex;
+      justify-content: space-between;
     }
+  }
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+
+  &.centered {
+    align-items: center;
+  }
+
+  .title {
+    font-weight: 800;
+    font-size: 15px;
+    line-height: 24px;
+    color: rgba(25, 28, 48, 0.9);
+  }
+
+  .value {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    color: #000000;
+
+    &.strong {
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 28px;
+      font-feature-settings: "liga" off;
+      color: rgba(27, 31, 59, 0.65);
+    }
+  }
 }

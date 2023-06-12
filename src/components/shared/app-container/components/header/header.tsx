@@ -5,7 +5,7 @@ import { LogoIcon } from "../../../icons";
 import styles from "./header.module.scss";
 
 interface Props {
-  activeTab: number;
+  activeTab: number | boolean;
   changeTab: (tab: number) => void;
   name: string;
   onClickLogout: () => void;
