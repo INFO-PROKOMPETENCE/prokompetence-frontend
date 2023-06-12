@@ -6,9 +6,11 @@ import { PreviewProjectCard } from "../../components/shared/preview-project-card
 import { getPortfolioAsync } from "../../redux-store/actions";
 import { portfolioSelector } from "../../redux-store/selectors";
 import { useAppDispatch } from "../../redux-store/store-manager";
+import { useTitle } from "../../utils";
 import styles from "./ProfilePage.module.scss";
 
 export const ProfilePage: FC = () => {
+  useTitle("Профиль");
   const portfolio = useSelector(portfolioSelector);
   const dispatch = useAppDispatch();
 

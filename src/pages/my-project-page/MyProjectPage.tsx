@@ -30,6 +30,7 @@ import {
   myTeamSelector,
 } from "../../redux-store/selectors";
 import { useAppDispatch } from "../../redux-store/store-manager";
+import { useTitle } from "../../utils";
 import { EmptyTeamPage } from "./components/empty-team-page";
 import { FindStudentsPage } from "./components/find-students-page";
 import { StudentContainer } from "./components/student-container";
@@ -43,6 +44,8 @@ enum MyProjectTabs {
 }
 
 export const MyProjectPage: FC = () => {
+  useTitle("Мой проект");
+
   const [activeTab, setActiveTab] = useState<MyProjectTabs>(MyProjectTabs.team);
 
   const myTeam = useSelector(myTeamSelector);

@@ -31,9 +31,11 @@ import {
   lifeScenariosSelector,
 } from "../../redux-store/selectors/catalog.selector";
 import { useAppDispatch } from "../../redux-store/store-manager";
+import { useTitle } from "../../utils";
 import styles from "./MainPage.module.scss";
 
 export const MainPage: FC = () => {
+  useTitle("Каталог");
   const [isOpenFiltersBar, setIsOpenFiltersBar] = useState<boolean>(false);
   const projects = useSelector(projectsSelector);
   const isLoadingProjects = useSelector(

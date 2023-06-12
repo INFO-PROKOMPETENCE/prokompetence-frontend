@@ -6,9 +6,11 @@ import { ContentContainer } from "../../components/shared/content-container/Cont
 import { LogoIcon } from "../../components/shared/icons";
 import { loginUserAsync, registerUserAsync } from "../../redux-store/actions";
 import { useAppDispatch } from "../../redux-store/store-manager";
+import { useTitle } from "../../utils";
 import styles from "./LoginPage.module.scss";
 
 export const LoginPage: FC = () => {
+  useTitle("Вход");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { values, handleChange, submitForm, errors } = useFormik<{

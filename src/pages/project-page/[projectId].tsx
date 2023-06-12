@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { CatalogTag } from "../../components/shared/catalog-tag";
@@ -21,8 +21,10 @@ import {
 import { useAppDispatch } from "../../redux-store/store-manager";
 import styles from "./ProjectPage.module.scss";
 import { ProjectDescriptionContainer } from "../../components/shared/project-description-container";
+import { useTitle } from "../../utils";
 
 export const ProjectPage: FC = () => {
+  const [documentTitle, setDocumentTitle] = useState("Проект");
   const { projectId } = useParams();
   const project = useSelector(currentProjectSelector);
   const projectInfo = useSelector(currentProjectInfoSelector);
@@ -37,6 +39,8 @@ export const ProjectPage: FC = () => {
 
   const dispatch = useAppDispatch();
 
+  useTitle(documentTitle);
+
   useEffect(() => {
     if (!keyTechnologies) {
       dispatch(getKeyTechnologiesAsync());
@@ -49,6 +53,12 @@ export const ProjectPage: FC = () => {
       dispatch(getProjectInfoAsync(projectId));
     }
   }, [dispatch, keyTechnologies, lifeScenarios, projectId]);
+
+  useEffect(() => {
+    if (project) {
+      setDocumentTitle(project.name);
+    }
+  }, [project]);
 
   return (
     <div className={styles.main}>
