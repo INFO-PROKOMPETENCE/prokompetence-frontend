@@ -1,156 +1,185 @@
 @import "../../styles/variables.scss";
 
-.main {
+.wrapperComponent {
   display: flex;
-  flex-direction: column;
-  gap: 44px;
+  flex: 1;
 
-  .teams {
+  .loader {
     display: flex;
-    flex-direction: column;
-    gap: 18px;
-
-    .title {
-      font-weight: 800;
-      font-size: 20px;
-      line-height: 24px;
-    }
-
-    .teammates {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 48px;
-
-      .teammateCard {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-
-        .info {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-
-          .role {
-            font-weight: 500;
-            font-size: 13px;
-            line-height: 20px;
-            color: #526ed3;
-          }
-
-          .name {
-            font-weight: 800;
-            font-size: 17px;
-            line-height: 28px;
-          }
-
-          .group {
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 24px;
-            color: rgba(27, 31, 59, 0.65);
-          }
-        }
-
-        .contacts {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-
-          .contactsTitle {
-            font-weight: 800;
-            font-size: 17px;
-            line-height: 28px;
-          }
-
-          .contact {
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 24px;
-          }
-        }
-      }
-    }
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
-  .projectContainer {
+  .main {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 44px;
+    width: 100%;
 
-    .title {
-      font-weight: 800;
-      font-size: 20px;
-      line-height: 24px;
+    .pageHeader {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .content {
+        display: flex;
+        justify-content: space-between;
+
+        .button {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
 
-    .projectContent {
+    .teams {
       display: flex;
-      gap: 48px;
+      flex-direction: column;
+      gap: 18px;
 
-      @media screen and (max-width: $desktop-width) {
-        gap: 36px;
+      .title {
+        font-weight: 800;
+        font-size: 20px;
+        line-height: 24px;
       }
 
-      .mainContent {
+      .teammates {
         display: flex;
-        flex-direction: column;
-        gap: 36px;
-        width: 100%;
+        flex-wrap: wrap;
+        gap: 48px;
 
-        .header {
+        .teammateCard {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 16px;
 
-          .tags {
-            display: flex;
-            gap: 8px;
-          }
-
-          .title {
-            font-weight: 800;
-            font-size: 24px;
-            line-height: 28px;
-            color: rgba(25, 28, 48, 0.9);
-          }
-        }
-
-        .description {
-          display: flex;
-          flex-direction: column;
-          gap: 18px;
-        }
-      }
-
-      .sideContent {
-        width: 336px;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 44px;
-
-        @media screen and (max-width: $desktop-width) {
-          width: 280px;
-        }
-
-        .wrapper {
-          width: 100%;
-
-          .container {
+          .info {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 2px;
 
-            .sideTitle {
+            .role {
+              font-weight: 500;
+              font-size: 13px;
+              line-height: 20px;
+              color: #526ed3;
+            }
+
+            .name {
               font-weight: 800;
               font-size: 17px;
               line-height: 28px;
-              color: rgba(25, 28, 48, 0.9);
             }
 
-            button {
-              margin-top: 16px;
+            .group {
+              font-weight: 500;
+              font-size: 15px;
+              line-height: 24px;
+              color: rgba(27, 31, 59, 0.65);
+            }
+          }
+
+          .contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            .contactsTitle {
+              font-weight: 800;
+              font-size: 17px;
+              line-height: 28px;
+            }
+
+            .contact {
+              font-weight: 500;
+              font-size: 15px;
+              line-height: 24px;
+            }
+          }
+        }
+      }
+    }
+
+    .projectContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .title {
+        font-weight: 800;
+        font-size: 20px;
+        line-height: 24px;
+      }
+
+      .projectContent {
+        display: flex;
+        gap: 48px;
+
+        @media screen and (max-width: $desktop-width) {
+          gap: 36px;
+        }
+
+        .mainContent {
+          display: flex;
+          flex-direction: column;
+          gap: 36px;
+          width: 100%;
+
+          .header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .tags {
+              display: flex;
+              gap: 8px;
+            }
+
+            .title {
+              font-weight: 800;
+              font-size: 24px;
+              line-height: 28px;
+              color: rgba(25, 28, 48, 0.9);
+            }
+          }
+
+          .description {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+          }
+        }
+
+        .sideContent {
+          width: 336px;
+          flex-shrink: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 44px;
+
+          @media screen and (max-width: $desktop-width) {
+            width: 280px;
+          }
+
+          .wrapper {
+            width: 100%;
+
+            .container {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+
+              .sideTitle {
+                font-weight: 800;
+                font-size: 17px;
+                line-height: 28px;
+                color: rgba(25, 28, 48, 0.9);
+              }
+
+              button {
+                margin-top: 16px;
+              }
             }
           }
         }

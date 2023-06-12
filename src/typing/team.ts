@@ -1,7 +1,7 @@
 export interface Teammate {
   studentId: string;
   studentName: string;
-  roleId: number;
+  // roleId: number;
   isTeamLead: boolean;
 }
 

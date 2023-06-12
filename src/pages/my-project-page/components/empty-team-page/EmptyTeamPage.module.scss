@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  .main {
+    width: 611px;
+
+    .content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 18px;
+
+      .title {
+        font-weight: 800;
+        font-size: 28px;
+        line-height: 32px;
+        color: #191c30e5;
+      }
+
+      .caption {
+        font-weight: 500;
+        font-size: 19px;
+        line-height: 28px;
+        color: #191c30e5;
+      }
+    }
+  }
+}
