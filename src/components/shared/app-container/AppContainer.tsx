@@ -44,7 +44,9 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
   const changePage = useCallback(
     (tab: number) => {
       setActiveTab(tab);
-      navigate(routes[tab]);
+      navigate({
+        pathname: routes[tab],
+      });
     },
     [navigate]
   );

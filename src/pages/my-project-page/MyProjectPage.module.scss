@@ -53,6 +53,13 @@
           display: flex;
           flex-direction: column;
           gap: 16px;
+          position: relative;
+
+          .deleteIcon {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+          }
 
           .info {
             display: flex;
@@ -183,6 +190,24 @@
             }
           }
         }
+      }
+    }
+
+    .invities {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .title {
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 28px;
+      }
+
+      .invitiesList {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
       }
     }
   }

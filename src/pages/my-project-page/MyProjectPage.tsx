@@ -3,14 +3,18 @@ import {
   Button,
   CircularProgress,
   Divider,
+  IconButton,
   Tab,
   Tabs,
 } from "@mui/material";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { createSearchParams } from "react-router-dom";
 import { CatalogTag } from "../../components/shared/catalog-tag";
 import { ContentContainer } from "../../components/shared/content-container/ContentContainer";
 import { Hidder } from "../../components/shared/hidder";
+import { DeleteIcon } from "../../components/shared/icons";
 import { ProjectAddInfoContainer } from "../../components/shared/project-add-info-container";
 import { ProjectDescriptionContainer } from "../../components/shared/project-description-container";
 import {
@@ -27,10 +31,19 @@ import {
 } from "../../redux-store/selectors";
 import { useAppDispatch } from "../../redux-store/store-manager";
 import { EmptyTeamPage } from "./components/empty-team-page";
+import { FindStudentsPage } from "./components/find-students-page";
+import { StudentContainer } from "./components/student-container";
 import styles from "./MyProjectPage.module.scss";
 
+enum MyProjectTabs {
+  team,
+  senden_invities,
+  invities,
+  find_students,
+}
+
 export const MyProjectPage: FC = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<MyProjectTabs>(MyProjectTabs.team);
 
   const myTeam = useSelector(myTeamSelector);
   const isLoadingMyTeam = useSelector(
@@ -40,6 +53,8 @@ export const MyProjectPage: FC = () => {
   const lifeScenarios = useSelector(lifeScenariosSelector);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { search } = useLocation();
 
   useEffect(() => {
     if (!keyTechnologies) {
@@ -58,7 +73,31 @@ export const MyProjectPage: FC = () => {
     }
   }, [myTeam]);
 
-  const changeTab = useCallback((tab: any) => {}, []);
+  const changeTab = useCallback(
+    (tab: number) => {
+      setActiveTab(tab);
+      navigate({
+        search: `?${createSearchParams({
+          tab: MyProjectTabs[tab],
+        })}`,
+      });
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    const tab = search.slice(1).split("=");
+
+    if (tab[0] === "tab" && Object.keys(MyProjectTabs).includes(tab[1])) {
+      changeTab(+MyProjectTabs[tab[1] as unknown as number]);
+    } else {
+      changeTab(0);
+    }
+  }, [changeTab, search]);
+
+  const isExistTeam = useMemo(() => {
+    return !!myTeam;
+  }, [myTeam]);
 
   return (
     <div className={styles.wrapperComponent}>
@@ -67,88 +106,101 @@ export const MyProjectPage: FC = () => {
           <CircularProgress />
         </div>
       )}
-      <Hidder show={!isLoadingMyTeam && !myTeam}>
-        <EmptyTeamPage />
-      </Hidder>
-      <Hidder show={!isLoadingMyTeam && !!myTeam}>
+      <Hidder show={!isLoadingMyTeam}>
         <div className={styles.main}>
-          <div className={styles.pageHeader}>
-            <div className={styles.content}>
-              <Tabs
-                value={activeTab}
-                onChange={(e, tab) => changeTab(tab)}
-                style={{ marginTop: 8 }}
-              >
-                <Tab style={{ textTransform: "none" }} label="Команда" />
-                <Tab
-                  style={{ textTransform: "none" }}
-                  label={<div>Отправленные заявки</div>}
-                />
-                <Tab
-                  style={{ textTransform: "none" }}
-                  label={
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: 4,
-                        justifyContent: "center",
-                      }}
+          <Hidder show={activeTab !== MyProjectTabs.find_students}>
+            <div className={styles.pageHeader}>
+              <div className={styles.content}>
+                <Tabs
+                  value={activeTab}
+                  onChange={(e, tab) => changeTab(tab)}
+                  style={{ marginTop: 8 }}
+                >
+                  <Tab style={{ textTransform: "none" }} label="Команда" />
+                  {isExistTeam && (
+                    <Tab
+                      style={{ textTransform: "none" }}
+                      label={<div>Отправленные заявки</div>}
+                    />
+                  )}
+                  {!isExistTeam && (
+                    <Tab
+                      style={{ textTransform: "none" }}
+                      label={
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: 4,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            Приглашения
+                          </div>
+                          <div
+                            style={{
+                              borderRadius: 50,
+                              background: "#8DDA71",
+                              width: 32,
+                              height: 32,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "#FFFFFF",
+                            }}
+                          >
+                            4
+                          </div>
+                        </div>
+                      }
+                    />
+                  )}
+                </Tabs>
+                {isExistTeam && (
+                  <div className={styles.button}>
+                    <Button
+                      variant="contained"
+                      onClick={() => changeTab(MyProjectTabs.find_students)}
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        Приглашения
+                      Добавить участника
+                    </Button>
+                  </div>
+                )}
+              </div>
+              <Divider />
+            </div>
+          </Hidder>
+          <Hidder show={activeTab === MyProjectTabs.team && !isExistTeam}>
+            <EmptyTeamPage />
+          </Hidder>
+          <Hidder show={activeTab === MyProjectTabs.team && isExistTeam}>
+            <div className={styles.teams}>
+              <div className={styles.teammates}>
+                {myTeam?.students.map(({ studentName, studentId }) => (
+                  <ContentContainer widthPx={240} key={studentId}>
+                    <div className={styles.teammateCard}>
+                      <div className={styles.info}>
+                        <div className={styles.role}>nothing yet</div>
+                        <div className={styles.name}>{studentName}</div>
+                        <div className={styles.group}>nothing yet</div>
                       </div>
-                      <div
-                        style={{
-                          borderRadius: 50,
-                          background: "#8DDA71",
-                          width: 32,
-                          height: 32,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "#FFFFFF",
-                        }}
-                      >
-                        4
+                      <div className={styles.contacts}>
+                        <div className={styles.contactsTitle}>Контакты</div>
+                        <div className={styles.contact}>nothing yet</div>
+                        <div className={styles.contact}>nothing yet</div>
                       </div>
                     </div>
-                  }
-                />
-              </Tabs>
-              <div className={styles.button}>
-                <Button variant="contained">Добавить участника</Button>
+                  </ContentContainer>
+                ))}
               </div>
             </div>
-            <Divider flexItem orientation="horizontal" />
-          </div>
-          <div className={styles.teams}>
-            <div className={styles.title}>Команда</div>
-            <div className={styles.teammates}>
-              {myTeam?.students.map(({ studentName, studentId }) => (
-                <ContentContainer widthPx={240} key={studentId}>
-                  <div className={styles.teammateCard}>
-                    <div className={styles.info}>
-                      <div className={styles.role}>nothing yet</div>
-                      <div className={styles.name}>{studentName}</div>
-                      <div className={styles.group}>nothing yet</div>
-                    </div>
-                    <div className={styles.contacts}>
-                      <div className={styles.contactsTitle}>Контакты</div>
-                      <div className={styles.contact}>nothing yet</div>
-                      <div className={styles.contact}>nothing yet</div>
-                    </div>
-                  </div>
-                </ContentContainer>
-              ))}
-            </div>
-          </div>
-          {/* <div className={styles.projectContainer}>
+            {/* <div className={styles.projectContainer}>
             <div className={styles.title}>Мой проект</div>
             <div className={styles.projectContent}>
               <Hidder
@@ -257,6 +309,50 @@ export const MyProjectPage: FC = () => {
             </Hidder>
             </div>
           </div> */}
+          </Hidder>
+          <Hidder show={activeTab === MyProjectTabs.senden_invities}>
+            <div className={styles.teams}>
+              <div className={styles.teammates}>
+                {myTeam?.students.map(({ studentName, studentId }) => (
+                  <ContentContainer widthPx={240} key={studentId}>
+                    <div className={styles.teammateCard}>
+                      <div className={styles.deleteIcon}>
+                        <IconButton>
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                      <div className={styles.info}>
+                        <div className={styles.role}>nothing yet</div>
+                        <div className={styles.name}>{studentName}</div>
+                        <div className={styles.group}>nothing yet</div>
+                      </div>
+                      <div className={styles.contacts}>
+                        <div className={styles.contactsTitle}>Контакты</div>
+                        <div className={styles.contact}>nothing yet</div>
+                        <div className={styles.contact}>nothing yet</div>
+                      </div>
+                    </div>
+                  </ContentContainer>
+                ))}
+              </div>
+            </div>
+          </Hidder>
+          <Hidder show={activeTab === MyProjectTabs.invities}>
+            <div className={styles.invities}>
+              <div className={styles.title}>Вас пригласили в команду</div>
+              <div className={styles.invitiesList}>
+                <StudentContainer
+                  group="34897590"
+                  name="ННикита"
+                  primaryButtonText="Принять"
+                  seconaryButtonText="Отклонить"
+                />
+              </div>
+            </div>
+          </Hidder>
+          <Hidder show={activeTab === MyProjectTabs.find_students}>
+            <FindStudentsPage />
+          </Hidder>
         </div>
       </Hidder>
     </div>

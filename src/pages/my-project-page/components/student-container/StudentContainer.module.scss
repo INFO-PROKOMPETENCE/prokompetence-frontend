@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .name {
+      font-weight: 800;
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    .role {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 20px;
+      color: #526ed3;
+    }
+
+    .group {
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 24px;
+      color: rgba(27, 31, 59, 0.65);
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+}

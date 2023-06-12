@@ -1,0 +1,28 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+
+    .title {
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 32px;
+    }
+
+    .searchContainer {
+      display: flex;
+      gap: 48px;
+    }
+  }
+
+  .studentList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
