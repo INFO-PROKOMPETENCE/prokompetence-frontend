@@ -9,7 +9,7 @@ import styles from "./EmptyTeamPage.module.scss";
 export const EmptyTeamPage: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { values, handleChange, errors, submitForm } = useFormik({
+  const { values, handleChange, errors } = useFormik({
     initialValues: {
       name: "",
     },

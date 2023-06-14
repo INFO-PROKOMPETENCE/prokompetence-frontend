@@ -19,6 +19,7 @@ export enum TEAM_ACTIONS {
   SET_INVITATIONS = "[TEAM] SET_INVITATIONS",
   GET_STUDENTS = "[TEAM] GET_STUDENTS",
   SET_STUDENTS = "[TEAM] SET_STUDENTS",
+  CLEAR_ALL = "[TEAM] CLEAR_ALL",
 }
 
 export const setMyTeamAction = createAction<Team>(TEAM_ACTIONS.SET_MY_TEAM);
@@ -30,6 +31,8 @@ export const setInvitationsAction = createAction<Invitations>(
 export const setStudentsAction = createAction<Students>(
   TEAM_ACTIONS.SET_STUDENTS
 );
+
+export const clearTeamDataAction = createAction<void>(TEAM_ACTIONS.CLEAR_ALL);
 
 export const getMyTeamAsync = createAsyncThunk(
   TEAM_ACTIONS.GET_MY_TEAM,
@@ -86,6 +89,7 @@ export const acceptInviteToTeamAsync = createAsyncThunk(
 
     try {
       await TeamConnector.getInstance().acceptInvite(teamId);
+      await dispatch(getMyTeamAsync());
     } catch (e) {
       console.log(e);
     }

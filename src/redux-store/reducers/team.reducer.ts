@@ -1,6 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { TeamStore } from "../../typing/store/team.store";
 import {
+  clearTeamDataAction,
   setInvitationsAction,
   setMyTeamAction,
   setStudentsAction,
@@ -42,9 +43,22 @@ const setStudents = (
   };
 };
 
+const clearAll = (
+  state: TeamStore,
+  action: ReturnType<typeof clearTeamDataAction>
+): TeamStore => {
+  return {
+    ...state,
+    students: null,
+    invitations: [],
+    team: null,
+  };
+};
+
 export const teamReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setMyTeamAction, setMyTeam)
     .addCase(setInvitationsAction, setInvitations)
-    .addCase(setStudentsAction, setStudents);
+    .addCase(setStudentsAction, setStudents)
+    .addCase(clearTeamDataAction, clearAll);
 });

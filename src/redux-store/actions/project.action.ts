@@ -16,6 +16,7 @@ export enum PROJECT_ACTIONS {
   SET_PROJECT_INFO = "[PROJECT] SET_PROJECT_INFO",
   GET_PROJECT_INFO = "[PROJECT] GET_PROJECT_INFO",
   CREATE_PROJECT = "[PROJECT] CREATE_PROJECT",
+  CLEAR_PROJECT_DATA = "[PROJECT] CLEAR_PROJECT_DATA",
 }
 
 export const setProjectsAction = createAction<ProjectList>(
@@ -28,6 +29,10 @@ export const setProjectAction = createAction<Project>(
 
 export const setProjectInfoAction = createAction<ProjectInformation>(
   PROJECT_ACTIONS.SET_PROJECT_INFO
+);
+
+export const clearProjectDataAction = createAction<void>(
+  PROJECT_ACTIONS.CLEAR_PROJECT_DATA
 );
 
 export const getProjectsAsync = createAsyncThunk(

@@ -36,7 +36,11 @@ export const InvitationsContainer: FC<Props> = () => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.title}>Вас пригласили в команду</div>
+      <div className={styles.title}>
+        {!isLoading && invitations.length === 0
+          ? "Вас пока никто не пригласил :("
+          : "Вас пригласили в команду"}
+      </div>
       <div className={styles.invitiesList}>
         <Hidder isLoading={isLoading}>
           {invitations.map(({ teamId, students }) => {

@@ -4,6 +4,7 @@ import {
   setProjectsAction,
   setProjectAction,
   setProjectInfoAction,
+  clearProjectDataAction,
 } from "../actions";
 
 const initialState: ProjectStore = {
@@ -45,9 +46,25 @@ const setProjectInfo = (
   };
 };
 
+const clearProjectData = (
+  state: ProjectStore,
+  action: ReturnType<typeof clearProjectDataAction>
+): ProjectStore => {
+  return {
+    ...state,
+    currentProjectInfo: null,
+    currentProject: null,
+    projectList: {
+      items: [],
+      totalCount: 0,
+    },
+  };
+};
+
 export const projectReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setProjectsAction, setProjects)
     .addCase(setProjectAction, setProject)
-    .addCase(setProjectInfoAction, setProjectInfo);
+    .addCase(setProjectInfoAction, setProjectInfo)
+    .addCase(clearProjectDataAction, clearProjectData);
 });

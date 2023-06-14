@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
 import {
+  clearProjectDataAction,
+  clearTeamDataAction,
   getCurrentUserAsync,
   logoutUserAction,
 } from "../../../redux-store/actions";
@@ -59,6 +61,8 @@ export const AppContainer: FC<PropsWithChildren> = ({ children }) => {
 
   const logout = useCallback(() => {
     dispatch(logoutUserAction());
+    dispatch(clearTeamDataAction());
+    dispatch(clearProjectDataAction());
     navigate("/login");
   }, [dispatch, navigate]);
 
