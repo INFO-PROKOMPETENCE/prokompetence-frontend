@@ -29,6 +29,7 @@ import {
 import {
   currentProjectInfoSelector,
   currentProjectSelector,
+  invitationsSelector,
   isLoadingByKeysSelector,
   keyTechnologiesSelector,
   lifeScenariosSelector,
@@ -38,6 +39,7 @@ import { useAppDispatch } from "../../redux-store/store-manager";
 import { useTitle } from "../../utils";
 import { EmptyTeamPage } from "./components/empty-team-page";
 import { FindStudentsPage } from "./components/find-students-page";
+import { InvitationsContainer } from "./components/invitations-container";
 import { StudentContainer } from "./components/student-container";
 import styles from "./MyProjectPage.module.scss";
 
@@ -67,6 +69,7 @@ export const MyProjectPage: FC = () => {
   );
   const keyTechnologies = useSelector(keyTechnologiesSelector);
   const lifeScenarios = useSelector(lifeScenariosSelector);
+  const invitations = useSelector(invitationsSelector);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -133,16 +136,22 @@ export const MyProjectPage: FC = () => {
                   onChange={(e, tab) => changeTab(tab)}
                   style={{ marginTop: 8 }}
                 >
-                  <Tab style={{ textTransform: "none" }} label="Команда" />
+                  <Tab
+                    style={{ textTransform: "none" }}
+                    label="Команда"
+                    value={MyProjectTabs.team}
+                  />
                   {isExistTeam && (
                     <Tab
                       style={{ textTransform: "none" }}
                       label={<div>Отправленные заявки</div>}
+                      value={MyProjectTabs.senden_invities}
                     />
                   )}
                   {!isExistTeam && (
                     <Tab
                       style={{ textTransform: "none" }}
+                      value={MyProjectTabs.invities}
                       label={
                         <div
                           style={{
@@ -172,7 +181,7 @@ export const MyProjectPage: FC = () => {
                               color: "#FFFFFF",
                             }}
                           >
-                            4
+                            {invitations.length}
                           </div>
                         </div>
                       }
@@ -349,42 +358,44 @@ export const MyProjectPage: FC = () => {
           <Hidder show={activeTab === MyProjectTabs.senden_invities}>
             <div className={styles.teams}>
               <div className={styles.teammates}>
-                {myTeam?.students.map(({ studentName, studentId }) => (
-                  <ContentContainer widthPx={240} key={studentId}>
-                    <div className={styles.teammateCard}>
-                      <div className={styles.deleteIcon}>
-                        <IconButton>
-                          <DeleteIcon />
-                        </IconButton>
+                IN_PROGRESS
+                {myTeam?.students.map(
+                  ({
+                    studentName,
+                    studentId,
+                    roleId,
+                    studentAcademicGroup,
+                    studentContacts,
+                  }) => (
+                    <ContentContainer widthPx={240} key={studentId}>
+                      <div className={styles.teammateCard}>
+                        <div className={styles.deleteIcon}>
+                          <IconButton>
+                            <DeleteIcon />
+                          </IconButton>
+                        </div>
+                        <div className={styles.info}>
+                          <div className={styles.role}>{roleId}</div>
+                          <div className={styles.name}>{studentName}</div>
+                          <div className={styles.group}>
+                            {studentAcademicGroup}
+                          </div>
+                        </div>
+                        <div className={styles.contacts}>
+                          <div className={styles.contactsTitle}>Контакты</div>
+                          <div className={styles.contact}>
+                            {studentContacts}
+                          </div>
+                        </div>
                       </div>
-                      <div className={styles.info}>
-                        <div className={styles.role}>nothing yet</div>
-                        <div className={styles.name}>{studentName}</div>
-                        <div className={styles.group}>nothing yet</div>
-                      </div>
-                      <div className={styles.contacts}>
-                        <div className={styles.contactsTitle}>Контакты</div>
-                        <div className={styles.contact}>nothing yet</div>
-                        <div className={styles.contact}>nothing yet</div>
-                      </div>
-                    </div>
-                  </ContentContainer>
-                ))}
+                    </ContentContainer>
+                  )
+                )}
               </div>
             </div>
           </Hidder>
           <Hidder show={activeTab === MyProjectTabs.invities}>
-            <div className={styles.invities}>
-              <div className={styles.title}>Вас пригласили в команду</div>
-              <div className={styles.invitiesList}>
-                <StudentContainer
-                  group="34897590"
-                  name="ННикита"
-                  primaryButtonText="Принять"
-                  seconaryButtonText="Отклонить"
-                />
-              </div>
-            </div>
+            <InvitationsContainer />
           </Hidder>
           <Hidder show={activeTab === MyProjectTabs.find_students}>
             <FindStudentsPage />

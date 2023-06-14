@@ -80,12 +80,11 @@ export const sendInviteToTeamAsync = createAsyncThunk(
 
 export const acceptInviteToTeamAsync = createAsyncThunk(
   TEAM_ACTIONS.ACCEPT_INVITE,
-  async (userId: string, { dispatch, getState }) => {
+  async (teamId: string, { dispatch }) => {
     dispatch(setLoadingAction(TEAM_ACTIONS.ACCEPT_INVITE));
 
     try {
-      const team = (getState() as Store).team.team!;
-      await TeamConnector.getInstance().acceptInvite(team.teamId);
+      await TeamConnector.getInstance().acceptInvite(teamId);
     } catch (e) {
       console.log(e);
     }

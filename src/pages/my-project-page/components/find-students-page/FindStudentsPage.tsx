@@ -1,9 +1,10 @@
 import { Button, TextField } from "@mui/material";
-import { FC, useEffect } from "react";
+import { FC, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Hidder } from "../../../../components/shared/hidder";
 import {
   getStudentsAsync,
+  sendInviteToTeamAsync,
   TEAM_ACTIONS,
 } from "../../../../redux-store/actions";
 import {
@@ -26,6 +27,14 @@ export const FindStudentsPage: FC<Props> = () => {
   useEffect(() => {
     dispatch(getStudentsAsync());
   }, [dispatch]);
+
+  const sendInvite = useCallback(
+    (userId: string) => {
+      dispatch(sendInviteToTeamAsync(userId));
+    },
+    [dispatch]
+  );
+
   return (
     <div className={styles.main}>
       <div className={styles.header}>
@@ -38,13 +47,14 @@ export const FindStudentsPage: FC<Props> = () => {
       <div className={styles.studentList}>
         <Hidder isLoading={isLoading}>
           {students &&
-            students.items.map(({ name }) => (
+            students.items.map(({ name, id }) => (
               <StudentContainer
+                key={id}
                 name={name}
                 role="Frontend-Разработчик MOCK"
                 group="РИ-300014 MOCK"
                 primaryButtonText="Добавить в команду"
-                onClickPrimaryButton={() => {}}
+                onClickPrimaryButton={() => sendInvite(id)}
               />
             ))}
         </Hidder>
