@@ -21,7 +21,8 @@ export interface LoginUserResponse {
 
 export interface CurrentUser {
   name: string;
-  id: string;
+  contacts: string;
+  academicGroup: string;
 }
 
 export interface PortfolioProject {

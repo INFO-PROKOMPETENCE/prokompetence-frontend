@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   CircularProgress,
   Divider,
@@ -9,7 +8,7 @@ import {
 } from "@mui/material";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { createSearchParams } from "react-router-dom";
 import { CatalogTag } from "../../components/shared/catalog-tag";
 import { ContentContainer } from "../../components/shared/content-container/ContentContainer";
@@ -40,7 +39,6 @@ import { useTitle } from "../../utils";
 import { EmptyTeamPage } from "./components/empty-team-page";
 import { FindStudentsPage } from "./components/find-students-page";
 import { InvitationsContainer } from "./components/invitations-container";
-import { StudentContainer } from "./components/student-container";
 import styles from "./MyProjectPage.module.scss";
 
 enum MyProjectTabs {

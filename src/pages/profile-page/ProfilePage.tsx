@@ -2,9 +2,14 @@ import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { CatalogTag } from "../../components/shared/catalog-tag";
 import { ContentContainer } from "../../components/shared/content-container/ContentContainer";
+import { Hidder } from "../../components/shared/hidder";
 import { PreviewProjectCard } from "../../components/shared/preview-project-card/PreviewProjectCard";
-import { getPortfolioAsync } from "../../redux-store/actions";
-import { portfolioSelector } from "../../redux-store/selectors";
+import { getPortfolioAsync, USER_ACTIONS } from "../../redux-store/actions";
+import {
+  currentUserSelector,
+  isLoadingByKeysSelector,
+  portfolioSelector,
+} from "../../redux-store/selectors";
 import { useAppDispatch } from "../../redux-store/store-manager";
 import { useTitle } from "../../utils";
 import styles from "./ProfilePage.module.scss";
@@ -12,6 +17,10 @@ import styles from "./ProfilePage.module.scss";
 export const ProfilePage: FC = () => {
   useTitle("Профиль");
   const portfolio = useSelector(portfolioSelector);
+  const currentUser = useSelector(currentUserSelector);
+  const isLoadingCurrentUser = useSelector(
+    isLoadingByKeysSelector([USER_ACTIONS.GET_CURRENT_USER])
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,31 +29,33 @@ export const ProfilePage: FC = () => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.info}>
-        <div className={styles.left}>
-          <div className={styles.avatar}></div>
-          <div className={styles.mainInfo}>
-            <div className={styles.name}>Иван Иванов</div>
-            <div className={styles.group}>РИ-300003</div>
-            <div className={styles.mail}>I.Ivanov@urfu.me</div>
+      <Hidder isLoading={isLoadingCurrentUser}>
+        <div className={styles.info}>
+          <div className={styles.left}>
+            <div className={styles.avatar}></div>
+            <div className={styles.mainInfo}>
+              <div className={styles.name}>{currentUser?.name}</div>
+              <div className={styles.group}>{currentUser?.academicGroup}</div>
+              <div className={styles.mail}>I.Ivanov@urfu.me MOCK</div>
+            </div>
+          </div>
+          <div className={styles.rigth}>
+            <div className={styles.title}>Основное</div>
+            <div className={styles.info}>
+              <InfoContainer title="Дата рождения" value="45.23.1902 MOCK" />
+              <InfoContainer title="Телефон" value="+7 934 724 67 98 MOCK" />
+              <InfoContainer
+                title="Почта"
+                value="sladkiy_malchik@predeinnikita.ru MOCK"
+              />
+              <InfoContainer
+                title="Контакт для связи"
+                value={currentUser?.contacts || ""}
+              />
+            </div>
           </div>
         </div>
-        <div className={styles.rigth}>
-          <div className={styles.title}>Основное</div>
-          <div className={styles.info}>
-            <InfoContainer title="Дата рождения" value="45.23.1902" />
-            <InfoContainer title="Телефон" value="+7 934 724 67 98" />
-            <InfoContainer
-              title="Почта"
-              value="sladkiy_malchik@predeinnikita.ru"
-            />
-            <InfoContainer
-              title="Контакт для связи"
-              value="tg:@predeinnikita.ru"
-            />
-          </div>
-        </div>
-      </div>
+      </Hidder>
       <div className={styles.competenceis}>
         <CompetenciesContainer title="Мои компетенции" />
         <CompetenciesContainer title="Желаемые компетенции" />

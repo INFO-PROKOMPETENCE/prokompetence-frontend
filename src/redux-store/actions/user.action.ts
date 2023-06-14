@@ -116,16 +116,14 @@ export const getCurrentUserAsync = createAsyncThunk(
 export const getPortfolioAsync = createAsyncThunk(
   USER_ACTIONS.GET_PORTFOLIO,
   async (_, { dispatch, getState }) => {
-    dispatch(setLoadingAction(USER_ACTIONS.GET_PORTFOLIO));
-
-    try {
-      const userId = (getState() as Store).user.currentUser?.id;
-      const { data } = await UserConnector.getInstance().getPortfolio(userId!);
-      dispatch(setProtfolioAction(data));
-    } catch (e) {
-      console.log(e);
-    }
-
-    dispatch(setLoadedAction(USER_ACTIONS.GET_PORTFOLIO));
+    // dispatch(setLoadingAction(USER_ACTIONS.GET_PORTFOLIO));
+    // try {
+    //   const userId = (getState() as Store).user.currentUser?.id;
+    //   const { data } = await UserConnector.getInstance().getPortfolio(userId!);
+    //   dispatch(setProtfolioAction(data));
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    // dispatch(setLoadedAction(USER_ACTIONS.GET_PORTFOLIO));
   }
 );
