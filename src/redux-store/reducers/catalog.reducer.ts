@@ -39,7 +39,6 @@ const setLifeScenarios = (
   state: CatalogStore,
   action: ReturnType<typeof setLifeScenariosAction>
 ): CatalogStore => {
-  console.log(action.payload);
   LocalStorageManager.removeFromLocalStorage(STORAGE_KEYS.LIFE_SCENARIOS);
   LocalStorageManager.setToLocalStorage(
     STORAGE_KEYS.LIFE_SCENARIOS,

@@ -38,7 +38,7 @@ export const LoginPage: FC = () => {
         await dispatch(
           registerUserAsync({
             ...values,
-            name: "test",
+            name: values.login,
           })
         )
       ).payload;

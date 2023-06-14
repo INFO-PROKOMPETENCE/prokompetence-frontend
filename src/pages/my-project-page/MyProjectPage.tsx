@@ -21,9 +21,14 @@ import {
   getKeyTechnologiesAsync,
   getLifeScenariosAsync,
   getMyTeamAsync,
+  getProjectAsync,
+  getProjectInfoAsync,
+  PROJECT_ACTIONS,
   TEAM_ACTIONS,
 } from "../../redux-store/actions";
 import {
+  currentProjectInfoSelector,
+  currentProjectSelector,
   isLoadingByKeysSelector,
   keyTechnologiesSelector,
   lifeScenariosSelector,
@@ -49,8 +54,16 @@ export const MyProjectPage: FC = () => {
   const [activeTab, setActiveTab] = useState<MyProjectTabs>(MyProjectTabs.team);
 
   const myTeam = useSelector(myTeamSelector);
+  const myProject = useSelector(currentProjectSelector);
+  const myProjectInfo = useSelector(currentProjectInfoSelector);
   const isLoadingMyTeam = useSelector(
     isLoadingByKeysSelector([TEAM_ACTIONS.GET_MY_TEAM])
+  );
+  const isLoadingMyProject = useSelector(
+    isLoadingByKeysSelector([PROJECT_ACTIONS.GET_PROJECT])
+  );
+  const isLoadingMyProjectInfo = useSelector(
+    isLoadingByKeysSelector([PROJECT_ACTIONS.GET_PROJECT_INFO])
   );
   const keyTechnologies = useSelector(keyTechnologiesSelector);
   const lifeScenarios = useSelector(lifeScenariosSelector);
@@ -71,10 +84,11 @@ export const MyProjectPage: FC = () => {
   }, [dispatch, keyTechnologies, lifeScenarios]);
 
   useEffect(() => {
-    if (myTeam) {
-      // запросить проект
+    if (myTeam && myTeam.projectId) {
+      dispatch(getProjectAsync(myTeam.projectId));
+      dispatch(getProjectInfoAsync(myTeam.projectId));
     }
-  }, [myTeam]);
+  }, [dispatch, myTeam]);
 
   const changeTab = useCallback(
     (tab: number) => {
@@ -185,133 +199,152 @@ export const MyProjectPage: FC = () => {
           <Hidder show={activeTab === MyProjectTabs.team && isExistTeam}>
             <div className={styles.teams}>
               <div className={styles.teammates}>
-                {myTeam?.students.map(({ studentName, studentId }) => (
-                  <ContentContainer widthPx={240} key={studentId}>
-                    <div className={styles.teammateCard}>
-                      <div className={styles.info}>
-                        <div className={styles.role}>nothing yet</div>
-                        <div className={styles.name}>{studentName}</div>
-                        <div className={styles.group}>nothing yet</div>
-                      </div>
-                      <div className={styles.contacts}>
-                        <div className={styles.contactsTitle}>Контакты</div>
-                        <div className={styles.contact}>nothing yet</div>
-                        <div className={styles.contact}>nothing yet</div>
-                      </div>
-                    </div>
-                  </ContentContainer>
-                ))}
-              </div>
-            </div>
-            {/* <div className={styles.projectContainer}>
-            <div className={styles.title}>Мой проект</div>
-            <div className={styles.projectContent}>
-              <Hidder
-              isLoading={isLoadingProject || isLoadingProjectInfo}
-              show={!!project && !!projectInfo}
-            >
-              {project && projectInfo && (
-                <>
-                  <div className={styles.mainContent}>
-                    <div className={styles.header}>
-                      <div className={styles.tags}>
-                        <CatalogTag
-                          label={
-                            lifeScenarios?.find(
-                              (item) => item.id === project.lifeScenarioId
-                            )?.name || ""
-                          }
-                          type="lifeScenario"
-                        />
-                        <CatalogTag
-                          label={
-                            keyTechnologies?.find(
-                              (item) => item.id === project.keyTechnologyId
-                            )?.name || ""
-                          }
-                          type="keyTechnology"
-                        />
-                      </div>
-                      <div className={styles.title}>{project.name}</div>
-                    </div>
-                    <ContentContainer>
-                      <div className={styles.description}>
-                        <ProjectDescriptionContainer
-                          title="Цель проекта"
-                          value={projectInfo.finalProject}
-                          isStrongHeader
-                        />
-                        <ProjectDescriptionContainer
-                          title="Описание проекта"
-                          value={projectInfo.description}
-                          isStrongHeader
-                        />
-                        <ProjectDescriptionContainer
-                          title="Ожидаемые результаты"
-                          value="Ожидаемые результаты"
-                          isStrongHeader
-                        />
-                        <ProjectDescriptionContainer
-                          title="Стек"
-                          value={projectInfo.stack}
-                          isStrongHeader
-                        />
+                {myTeam?.students.map(
+                  ({
+                    studentName,
+                    studentId,
+                    studentAcademicGroup,
+                    studentContacts,
+                    roleId,
+                  }) => (
+                    <ContentContainer widthPx={240} key={studentId}>
+                      <div className={styles.teammateCard}>
+                        <div className={styles.info}>
+                          <div className={styles.role}>{roleId}</div>
+                          <div className={styles.name}>{studentName}</div>
+                          <div className={styles.group}>
+                            {studentAcademicGroup}
+                          </div>
+                        </div>
+                        <div className={styles.contacts}>
+                          <div className={styles.contactsTitle}>Контакты</div>
+                          <div className={styles.contact}>
+                            {studentContacts}
+                          </div>
+                        </div>
                       </div>
                     </ContentContainer>
-                  </div>
-                  <div className={styles.sideContent}>
-                    <div className={styles.wrapper}>
-                      <ContentContainer>
-                        <div className={styles.container}>
-                          <div className={styles.sideTitle}>Информация</div>
-                          <ProjectDescriptionContainer
-                            title="Организация:"
-                            value={project.organizationName}
-                            smallGap
-                          />
-                          <ProjectDescriptionContainer
-                            title="Куратор:"
-                            value={project.curatorName}
-                            smallGap
-                          />
-                          <ProjectDescriptionContainer
-                            title="Контакты:"
-                            value="contacts"
-                            smallGap
-                          />
-                        </div>
-                      </ContentContainer>
-                    </div>
-                    <div className={styles.wrapper}>
-                      <ContentContainer>
-                        <div className={styles.container}>
-                          <div className={styles.sideTitle}>
-                            Дополнительная информация
-                          </div>
-                          <ProjectAddInfoContainer
-                            title="Ссылка на репозиторий:"
-                            name=""
-                            onChange={() => {}}
-                            value=""
-                          />
-                          <ProjectAddInfoContainer
-                            title="Ссылка на Систему управления проектами(Trello, Jira и т.п):"
-                            name=""
-                            onChange={() => {}}
-                            value=""
-                          />
-                          <Button variant="contained" fullWidth>
-                            Сохранить
-                          </Button>
-                        </div>
-                      </ContentContainer>
-                    </div>
-                  </div>
-                </>
-              )}
-            </Hidder>
+                  )
+                )}
+              </div>
             </div>
-          </div> */}
+            <Hidder
+              show={
+                !myProject && !(isLoadingMyProject || isLoadingMyProjectInfo)
+              }
+            >
+              У вас еще нет проекта :(
+            </Hidder>
+            <Hidder
+              show={!!myProject}
+              isLoading={isLoadingMyProject || isLoadingMyProjectInfo}
+            >
+              <div className={styles.projectContainer}>
+                <div className={styles.title}>Мой проект</div>
+                <div className={styles.projectContent}>
+                  {myProject && myProjectInfo && (
+                    <>
+                      <div className={styles.mainContent}>
+                        <div className={styles.header}>
+                          <div className={styles.tags}>
+                            <CatalogTag
+                              label={
+                                lifeScenarios?.find(
+                                  (item) => item.id === myProject.lifeScenarioId
+                                )?.name || ""
+                              }
+                              type="lifeScenario"
+                            />
+                            <CatalogTag
+                              label={
+                                keyTechnologies?.find(
+                                  (item) =>
+                                    item.id === myProject.keyTechnologyId
+                                )?.name || ""
+                              }
+                              type="keyTechnology"
+                            />
+                          </div>
+                          <div className={styles.title}>{myProject.name}</div>
+                        </div>
+                        <ContentContainer>
+                          <div className={styles.description}>
+                            <ProjectDescriptionContainer
+                              title="Цель проекта"
+                              value={myProjectInfo.finalProject}
+                              isStrongHeader
+                            />
+                            <ProjectDescriptionContainer
+                              title="Описание проекта"
+                              value={myProjectInfo.description}
+                              isStrongHeader
+                            />
+                            <ProjectDescriptionContainer
+                              title="Ожидаемые результаты"
+                              value="Ожидаемые результаты"
+                              isStrongHeader
+                            />
+                            <ProjectDescriptionContainer
+                              title="Стек"
+                              value={myProjectInfo.stack}
+                              isStrongHeader
+                            />
+                          </div>
+                        </ContentContainer>
+                      </div>
+                      <div className={styles.sideContent}>
+                        <div className={styles.wrapper}>
+                          <ContentContainer>
+                            <div className={styles.container}>
+                              <div className={styles.sideTitle}>Информация</div>
+                              <ProjectDescriptionContainer
+                                title="Организация:"
+                                value={myProject.organizationName}
+                                smallGap
+                              />
+                              <ProjectDescriptionContainer
+                                title="Куратор:"
+                                value={myProject.curatorName}
+                                smallGap
+                              />
+                              <ProjectDescriptionContainer
+                                title="Контакты:"
+                                value="contacts"
+                                smallGap
+                              />
+                            </div>
+                          </ContentContainer>
+                        </div>
+                        <div className={styles.wrapper}>
+                          <ContentContainer>
+                            <div className={styles.container}>
+                              <div className={styles.sideTitle}>
+                                Дополнительная информация
+                              </div>
+                              <ProjectAddInfoContainer
+                                title="Ссылка на репозиторий:"
+                                name=""
+                                onChange={() => {}}
+                                value=""
+                              />
+                              <ProjectAddInfoContainer
+                                title="Ссылка на Систему управления проектами(Trello, Jira и т.п):"
+                                name=""
+                                onChange={() => {}}
+                                value=""
+                              />
+                              <Button variant="contained" fullWidth>
+                                Сохранить
+                              </Button>
+                            </div>
+                          </ContentContainer>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </Hidder>
           </Hidder>
           <Hidder show={activeTab === MyProjectTabs.senden_invities}>
             <div className={styles.teams}>

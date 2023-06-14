@@ -28,5 +28,10 @@ export const URLS = {
   },
   [ConnectorFlow.TEAMS]: {
     GET_MY_TEAM: "api/teams/my",
+    GET_STUDENTS: "api/students",
+    CREATE_TEAM: "api/teams",
+    SEND_INVITE_IN_TEM: (teamId: string) => `api/teams/${teamId}/invite`,
+    GET_INVITES_TO_TEAMS: "api/teams/invitations",
+    ACCEPT_INVITE: (teamId: string) => `api/teams/${teamId}/accept-invite`,
   },
 };
