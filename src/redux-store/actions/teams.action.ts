@@ -54,6 +54,7 @@ export const createTeamAsync = createAsyncThunk(
 
     try {
       await TeamConnector.getInstance().createTeam(payload);
+      await dispatch(getMyTeamAsync());
     } catch (e) {
       console.log(e);
     }
