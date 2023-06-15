@@ -42,11 +42,15 @@ export const getMyTeamAsync = createAsyncThunk(
     try {
       const { data } = await TeamConnector.getInstance().getMyTeam();
       dispatch(setMyTeamAction(data));
+
+      dispatch(setLoadedAction(TEAM_ACTIONS.GET_MY_TEAM));
+      return data;
     } catch (e) {
       console.log(e);
-    }
 
-    dispatch(setLoadedAction(TEAM_ACTIONS.GET_MY_TEAM));
+      dispatch(setLoadedAction(TEAM_ACTIONS.GET_MY_TEAM));
+      return false;
+    }
   }
 );
 

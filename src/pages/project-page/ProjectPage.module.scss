@@ -1,18 +1,24 @@
 @import "../../styles/variables.scss";
 
-.main {
+.mainContent {
   display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 100%;
 
-  .mainContent {
+  .header {
     display: flex;
-    flex-direction: column;
-    gap: 36px;
-    width: 100%;
+    gap: 48px;
 
-    .header {
+    @media screen and (max-width: $desktop-width) {
+      gap: 36px;
+    }
+
+    .info {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      width: 100%;
 
       .tags {
         display: flex;
@@ -27,52 +33,152 @@
       }
     }
 
-    .content {
+    .enrollContainer {
+      width: 336px;
+      flex-shrink: 0;
       display: flex;
-      gap: 48px;
+      align-items: center;
 
       @media screen and (max-width: $desktop-width) {
-        gap: 36px;
+        width: 280px;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 48px;
+
+    @media screen and (max-width: $desktop-width) {
+      gap: 36px;
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .sideContent {
+      width: 336px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 44px;
+
+      @media screen and (max-width: $desktop-width) {
+        width: 280px;
       }
 
-      .description {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-      }
+      .wrapper {
+        width: 100%;
 
-      .sideContent {
-        width: 336px;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 44px;
+        .container {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
 
-        @media screen and (max-width: $desktop-width) {
-          width: 280px;
-        }
+          .sideTitle {
+            font-weight: 800;
+            font-size: 17px;
+            line-height: 28px;
+            color: rgba(25, 28, 48, 0.9);
+          }
 
-        .wrapper {
-          width: 100%;
-
-          .container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-
-            .sideTitle {
-              font-weight: 800;
-              font-size: 17px;
-              line-height: 28px;
-              color: rgba(25, 28, 48, 0.9);
-            }
-
-            button {
-              margin-top: 16px;
-            }
+          button {
+            margin-top: 16px;
           }
         }
       }
+    }
+  }
+
+  .teams {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .title {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      .text {
+        font-weight: 800;
+        font-size: 20px;
+        line-height: 24px;
+      }
+    }
+
+    .teamList {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .teamItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .nameContainer {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          .name {
+            font-weight: 800;
+            font-size: 20px;
+            line-height: 24px;
+          }
+        }
+
+        .status {
+          font-weight: 800;
+          font-size: 17px;
+          line-height: 28px;
+          color: #526ed3;
+        }
+      }
+    }
+  }
+}
+
+.counterContainer {
+  box-sizing: border-box;
+  padding: 2px 12px;
+  border-radius: 30px;
+  background: #ff7043;
+  display: flex;
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 611px;
+
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+
+    .modalTitle {
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 32px;
+    }
+
+    .modalCaption {
+      font-weight: 500;
+      font-size: 19px;
+      line-height: 28px;
+      text-align: center;
     }
   }
 }

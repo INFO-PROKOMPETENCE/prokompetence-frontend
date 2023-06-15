@@ -32,4 +32,8 @@ export class ProjectConnector extends PrimaryConnector<ConnectorFlow.PROJECTS> {
   public createProject = (payload: CreateProjectPayload) => {
     return axios.post<void>(this.urls.ADD_PROJECT, payload);
   };
+
+  public enrollToProject = (projectId: string) => {
+    return axios.post<void>(this.urls.ENROLL_TO_PROJECT(projectId));
+  };
 }

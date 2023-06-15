@@ -1,3 +1,5 @@
+import { Team } from "./team";
+
 export interface Project {
   id: string;
   name: string;
@@ -33,6 +35,6 @@ export interface ProjectList {
 export interface ProjectInformation {
   description: string;
   finalProject: string;
-  teams: string[];
+  teams: Team[];
   stack: string;
 }

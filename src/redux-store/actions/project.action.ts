@@ -17,6 +17,7 @@ export enum PROJECT_ACTIONS {
   GET_PROJECT_INFO = "[PROJECT] GET_PROJECT_INFO",
   CREATE_PROJECT = "[PROJECT] CREATE_PROJECT",
   CLEAR_PROJECT_DATA = "[PROJECT] CLEAR_PROJECT_DATA",
+  ENROLL_TO_PROJECT = "[PROJECT] ENROLL_TO_PROJECT",
 }
 
 export const setProjectsAction = createAction<ProjectList>(
@@ -99,5 +100,20 @@ export const createProjectAsync = createAsyncThunk(
     }
 
     dispatch(setLoadedAction(PROJECT_ACTIONS.CREATE_PROJECT));
+  }
+);
+
+export const enrollToProjectAsync = createAsyncThunk(
+  PROJECT_ACTIONS.ENROLL_TO_PROJECT,
+  async (projectId: string, { dispatch }) => {
+    dispatch(setLoadingAction(PROJECT_ACTIONS.ENROLL_TO_PROJECT));
+
+    try {
+      await ProjectConnector.getInstance().enrollToProject(projectId);
+    } catch (e) {
+      console.log(e);
+    }
+
+    dispatch(setLoadedAction(PROJECT_ACTIONS.ENROLL_TO_PROJECT));
   }
 );

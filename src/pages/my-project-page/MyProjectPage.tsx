@@ -17,6 +17,7 @@ import { DeleteIcon } from "../../components/shared/icons";
 import { ProjectAddInfoContainer } from "../../components/shared/project-add-info-container";
 import { ProjectDescriptionContainer } from "../../components/shared/project-description-container";
 import {
+  clearProjectDataAction,
   getKeyTechnologiesAsync,
   getLifeScenariosAsync,
   getMyTeamAsync,
@@ -72,6 +73,11 @@ export const MyProjectPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
+
+  //@ts-ignore
+  useEffect(() => {
+    return () => dispatch(clearProjectDataAction());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!keyTechnologies) {
