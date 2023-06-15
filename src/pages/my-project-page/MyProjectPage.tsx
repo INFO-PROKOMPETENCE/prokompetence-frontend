@@ -145,13 +145,13 @@ export const MyProjectPage: FC = () => {
                     label="Команда"
                     value={MyProjectTabs.team}
                   />
-                  {isExistTeam && (
+                  {/* {isExistTeam && (
                     <Tab
                       style={{ textTransform: "none" }}
                       label={<div>Отправленные заявки</div>}
                       value={MyProjectTabs.senden_invities}
                     />
-                  )}
+                  )} */}
                   {!isExistTeam && (
                     <Tab
                       style={{ textTransform: "none" }}

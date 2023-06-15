@@ -36,17 +36,17 @@ export const ProfilePage: FC = () => {
             <div className={styles.mainInfo}>
               <div className={styles.name}>{currentUser?.name}</div>
               <div className={styles.group}>{currentUser?.academicGroup}</div>
-              <div className={styles.mail}>I.Ivanov@urfu.me MOCK</div>
+              <div className={styles.mail}>I.Ivanov@urfu.me </div>
             </div>
           </div>
           <div className={styles.rigth}>
             <div className={styles.title}>Основное</div>
             <div className={styles.info}>
-              <InfoContainer title="Дата рождения" value="45.23.1902 MOCK" />
-              <InfoContainer title="Телефон" value="+7 934 724 67 98 MOCK" />
+              <InfoContainer title="Дата рождения" value="45.23.1902 " />
+              <InfoContainer title="Телефон" value="+7 934 724 67 98 " />
               <InfoContainer
                 title="Почта"
-                value="sladkiy_malchik@predeinnikita.ru MOCK"
+                value="sladkiy_malchik@predeinnikita.ru "
               />
               <InfoContainer
                 title="Контакт для связи"

@@ -51,8 +51,8 @@ export const FindStudentsPage: FC<Props> = () => {
               <StudentContainer
                 key={id}
                 name={name}
-                role="Frontend-Разработчик MOCK"
-                group="РИ-300014 MOCK"
+                role="Frontend-Разработчик "
+                group="РИ-300014 "
                 primaryButtonText="Добавить в команду"
                 onClickPrimaryButton={() => sendInvite(id)}
               />
